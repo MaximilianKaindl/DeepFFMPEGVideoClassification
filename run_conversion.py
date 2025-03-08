@@ -230,9 +230,9 @@ def main():
                         help="Directory for resource files")
     
     # CLIP model arguments
-    parser.add_argument("--clip_model_name", type=str, default="ViT-B-32",
+    parser.add_argument("--clip_model_name", type=str, default="ViT-L-14",
                         help="CLIP model name")
-    parser.add_argument("--clip_dataset", type=str, default="laion2b_s34b_b79k",
+    parser.add_argument("--clip_dataset", type=str, default="datacomp_xl_s13b_b90k",
                         help="CLIP dataset name")
     parser.add_argument("--image_path", type=str, default="resources/images/cat.jpg",
                         help="Path to image file for CLIP testing")

@@ -3,7 +3,7 @@ import torch
 import argparse
 import os
 import open_clip
-import convert_simpletokenizer_to_hf as exporter_module
+import shutil
 
 def export_clip_model(model_name, dataset_name, output_path, tokenizer_dir=None):
     """Export a CLIP model to TorchScript format."""
@@ -21,15 +21,20 @@ def export_clip_model(model_name, dataset_name, output_path, tokenizer_dir=None)
 
         if tokenizer_dir:
             try:
+                print(f"Saving tokenizer to {tokenizer_dir}...")
+
                 # Try to use save_pretrained directly
                 if hasattr(tokenizer, 'save_pretrained'):
-                    print(f"Saving tokenizer to {tokenizer_dir}...")
                     tokenizer.save_pretrained(tokenizer_dir)
                 # If SimpleTokenizer without save_pretrained method
                                     
-                else:
-                    print(f"Using custom exporter to save tokenizer to {tokenizer_dir}...")
-                    exporter_module.save_simple_tokenizer(tokenizer, tokenizer_dir)
+                else:                    
+                    # Copy the simpletokenizer.json file to output directory if it exists
+                    source_tokenizer_path = os.path.join('converters', "simpletokenizer.json")
+                    if os.path.exists(source_tokenizer_path):
+                        target_tokenizer_path = os.path.join(tokenizer_dir, "tokenizer.json")
+                        print(f"Copying simpletokenizer.json to {target_tokenizer_path}")
+                        shutil.copy2(source_tokenizer_path, target_tokenizer_path)
             except Exception as e:
                 print(f"Error saving tokenizer: {str(e)}")        
 
