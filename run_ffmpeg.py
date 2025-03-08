@@ -47,73 +47,6 @@ class FFmpegCommandBuilder:
             
         return True
 
-    def check_models(self, need_clip=False, need_clap=False):
-        """Check if required models are available, run conversion if needed"""
-        models_config_path = os.path.join(self.models_dir, "models_config.json")
-        
-        if (need_clip or need_clap) and not os.path.exists(models_config_path):
-            print("Models configuration not found. Running model conversion...")
-            self.run_model_conversion(need_clip, need_clap)
-            return
-            
-        if os.path.exists(models_config_path):
-            with open(models_config_path, 'r') as f:
-                config = json.load(f)
-                
-            clip_ok = True
-            clap_ok = True
-            
-            if need_clip:
-                clip_model_path = config.get("clip_model", {}).get("path", "")
-                if not os.path.exists(clip_model_path):
-                    print(f"CLIP model not found at {clip_model_path}")
-                    clip_ok = False
-                    
-            if need_clap:
-                clap_model_path = config.get("clap_model", {}).get("path", "")
-                if not os.path.exists(clap_model_path):
-                    print(f"CLAP model not found at {clap_model_path}")
-                    clap_ok = False
-                    
-            if (need_clip and not clip_ok) or (need_clap and not clap_ok):
-                print("Some required models are missing. Running model conversion...")
-                self.run_model_conversion(need_clip, need_clap)
-        else:
-            if need_clip or need_clap:
-                print("Models configuration not found. Running model conversion...")
-                self.run_model_conversion(need_clip, need_clap)
-
-    def run_model_conversion(self, need_clip=False, need_clap=False):
-        """Run model conversion script to prepare CLIP and/or CLAP models"""
-        # Make sure the directories exist
-        os.makedirs(self.models_dir, exist_ok=True)
-        os.makedirs(self.resources_dir, exist_ok=True)
-        
-        cmd = [sys.executable, "run_conversion.py"]
-        
-        if not need_clip:
-            cmd.append("--skip_clip")
-            
-        if not need_clap:
-            cmd.append("--skip_clap")
-            
-        # Add CUDA support if available
-        try:
-            import torch
-            if torch.cuda.is_available():
-                cmd.append("--use_cuda")
-                print("CUDA detected, enabling GPU acceleration for model conversion")
-        except ImportError:
-            pass
-            
-        print(f"Running: {' '.join(cmd)}")
-        try:
-            subprocess.run(cmd, check=True)
-            print("Model conversion completed successfully")
-        except subprocess.CalledProcessError as e:
-            print(f"Error during model conversion: {e}")
-            sys.exit(1)
-
     def build_detection_filter(self, args):
         """Build the FFmpeg detection filter string"""
         if not args.detect_model:
@@ -199,9 +132,6 @@ class FFmpegCommandBuilder:
     def build_command(self, args):
         """Build the complete FFmpeg command based on arguments"""
         # Check for required models
-        need_clip = args.clip_model is not None
-        need_clap = args.clap_model is not None
-        self.check_models(need_clip, need_clap)
         
         # Base command
         cmd = [self.ffmpeg_path]
