@@ -111,62 +111,67 @@ def test_clap_model(model, audio_path, labels, sample_rate=44100, duration=7.0, 
             audio_sample = audio_sample.cuda()
             model = model.cuda()
         
-        # Get token info from model structure
-        # In most CLAP cases, we need input_ids and might need attention_mask
-        token_dict = {}
-        for label in labels:
-            token_dict[label] = {}
-        
         # Run model inference
         with torch.no_grad():
-            # We assume the model expects (audio, input_ids, attention_mask)
-            # or just (audio, input_ids) depending on the model structure
-            try:
-                # Try different input patterns based on model requirements
-                # This is challenging without knowing exactly how the model was traced
-                
-                # Option 1: Process all text at once
-                # This might work with some traced models
-                from msclap import CLAP
-                clap = CLAP(use_cuda=use_cuda)
-                processed_tokens = clap.preprocess_text(labels)
-                if use_cuda and torch.cuda.is_available():
-                    processed_tokens = {k: v.cuda() for k, v in processed_tokens.items()}
-                
-                outputs = model(audio_sample, processed_tokens)
-                
-                # Extract results
-                if isinstance(outputs, tuple) and len(outputs) >= 3:
-                    caption_embed, audio_embed, logit_scale = outputs[:3]
-                else:
-                    print("Unexpected output format from CLAP model")
-                    return None
-                
-                # Normalize embeddings
-                caption_embed = caption_embed / caption_embed.norm(dim=-1, keepdim=True)
-                audio_embed = audio_embed / audio_embed.norm(dim=-1, keepdim=True)
-                
-                # Compute similarity
-                similarity = (logit_scale * (audio_embed @ caption_embed.T)).softmax(dim=-1)
-                similarity_np = similarity.cpu().numpy()
-                
-                # Create results dictionary
-                results = {label: float(similarity_np[0][i]) for i, label in enumerate(labels)}
-                
-                # Print results
-                print("\nCLAP Audio Classification Results:")
-                for label, score in sorted(results.items(), key=lambda x: x[1], reverse=True):
-                    print(f"{label}: {score:.4f} confidence")
-                
-                return results
-                
-            except Exception as e:
-                print(f"Error during CLAP inference: {e}")
-                print("This could be due to model structure mismatch. Try providing the exact same inputs used during tracing.")
+            # Import CLAP to use its text preprocessing
+            from msclap import CLAP
+            clap_preprocessor = CLAP(use_cuda=use_cuda)
+            
+            # Get processed tokens
+            processed_tokens = clap_preprocessor.preprocess_text(labels)
+            
+            # Move tokens to CUDA if needed
+            if use_cuda and torch.cuda.is_available():
+                processed_tokens = {k: v.cuda() for k, v in processed_tokens.items()}
+            
+            # Extract token tensors
+            token_keys = list(processed_tokens.keys())
+            input_ids = processed_tokens.get("input_ids", None)
+            attention_mask = processed_tokens.get("attention_mask", None)
+            
+            # If keys are different from expected
+            if input_ids is None and "input_ids" not in token_keys and token_keys:
+                # Use the first available tensor
+                first_key = token_keys[0]
+                input_ids = processed_tokens[first_key]
+                # And if there's a second one, use that too
+                attention_mask = processed_tokens[token_keys[1]] if len(token_keys) > 1 else None
+            
+            # Prepare model inputs based on available tokens
+            if attention_mask is not None:
+                outputs = model(audio_sample, input_ids, attention_mask)
+            else:
+                outputs = model(audio_sample, input_ids)
+            
+            # Extract results
+            if isinstance(outputs, tuple) and len(outputs) >= 3:
+                caption_embed, audio_embed, logit_scale = outputs[:3]
+            else:
+                print("Unexpected output format from CLAP model")
                 return None
+            
+            # Normalize embeddings
+            caption_embed = caption_embed / caption_embed.norm(dim=-1, keepdim=True)
+            audio_embed = audio_embed / audio_embed.norm(dim=-1, keepdim=True)
+            
+            # Compute similarity
+            similarity = (logit_scale * (audio_embed @ caption_embed.T)).softmax(dim=-1)
+            similarity_np = similarity.cpu().numpy()
+            
+            # Create results dictionary
+            results = {label: float(similarity_np[0][i]) for i, label in enumerate(labels)}
+            
+            # Print results
+            print("\nCLAP Audio Classification Results:")
+            for label, score in sorted(results.items(), key=lambda x: x[1], reverse=True):
+                print(f"{label}: {score:.4f} confidence")
+            
+            return results
                 
     except Exception as e:
         print(f"Error testing CLAP model: {e}")
+        import traceback
+        traceback.print_exc()
         return None
 
 def main():
