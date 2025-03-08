@@ -151,7 +151,6 @@ python run_ffmpeg.py \
   --clip-model models/clip/clip_vit_b_32.pt \
   --categories resources/labels/categories_clip.txt \
   --tokenizer models/clip/tokenizer_clip/tokenizer.json \
-  --output-stats output/results.txt
 ```
 
 ### Running audio analysis with CLAP
@@ -163,7 +162,6 @@ python run_ffmpeg.py \
   --clap-model models/clap/msclap2023.pt \
   --audio-labels resources/labels/categories_clap.txt \
   --audio-tokenizer models/clap/tokenizer_clap/tokenizer.json \
-  --output-stats output/audio_results.txt
 ```
 
 ### Complete pipeline with detection, CLIP and CLAP
@@ -171,7 +169,6 @@ python run_ffmpeg.py \
 ```bash
 python run_ffmpeg.py \
   --input resources/video/sample.mp4 \
-  --output-stats output/full_analysis.txt \
   --scene-threshold 0.4 \
   --confidence 0.1 \
   --detect-model models/detect/public/yolo-v4-tiny-tf/FP16/yolo-v4-tiny-tf.xml \
