@@ -196,13 +196,8 @@ class FFmpegCommandBuilder:
             filters.append(self.build_average_filter(args))
             
             cmd.extend(["-vf", ",".join(filters)])
-            
-        # Output file
-        if args.output_video:
-            cmd.extend(["-y", args.output_video])
-        else:
-            cmd.extend(["-f", "null", "-"])
-            
+
+        cmd.extend(["-f", "null", "-"])
         return cmd
 
 def parse_arguments():
@@ -210,7 +205,6 @@ def parse_arguments():
     
     # Input/output options
     parser.add_argument('--input', required=True, help='Input video/audio file')
-    parser.add_argument('--output-video', help='Output video file')
     parser.add_argument('--output-stats', help='Output statistics file')
     parser.add_argument('--verbose', action='store_true', help='Enable verbose output')
     
