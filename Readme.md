@@ -122,6 +122,24 @@ omz_converter --name yolo-v4-tiny-tf
 wget https://raw.githubusercontent.com/openvinotoolkit/open_model_zoo/refs/heads/master/data/dataset_classes/coco_80cl.txt -O resources/labels/coco_80cl.txt
 ```
 
+## ⚙️ Model Conversion
+
+The project includes a model conversion tool (`run_conversion.py`) that handles downloading, converting, and testing CLIP and CLAP models:
+
+```bash
+# Convert both CLIP and CLAP models
+python run_conversion.py
+
+# Convert only CLIP model
+python run_conversion.py --skip-clap
+
+# Convert only CLAP model
+python run_conversion.py --skip-clip
+
+# Use GPU acceleration during conversion
+python run_conversion.py --use-cuda
+```
+
 ## 🔧 Usage
 
 ### Running a basic visual analysis with CLIP
@@ -166,24 +184,6 @@ python run_ffmpeg.py \
   --clap-model models/clap/msclap2023.pt \
   --audio-tokenizer models/clap/tokenizer_clap/tokenizer.json \
   --output-video output/annotated_video.mp4
-```
-
-## ⚙️ Model Conversion
-
-The project includes a model conversion tool (`run_conversion.py`) that handles downloading, converting, and testing CLIP and CLAP models:
-
-```bash
-# Convert both CLIP and CLAP models
-python run_conversion.py
-
-# Convert only CLIP model
-python run_conversion.py --skip-clap
-
-# Convert only CLAP model
-python run_conversion.py --skip-clip
-
-# Use GPU acceleration during conversion
-python run_conversion.py --use-cuda
 ```
 
 ## 📊 Output Format
