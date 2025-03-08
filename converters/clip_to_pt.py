@@ -66,11 +66,11 @@ def export_clip_model(model_name, dataset_name, output_path, tokenizer_dir=None)
 def main():
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Export CLIP model to TorchScript format')
-    parser.add_argument('--model_name', type=str, required=True, 
+    parser.add_argument('--model_name', type=str,  default="ViT-L-14", 
                         help='Name of the CLIP model (e.g., ViT-B-32)')
-    parser.add_argument('--dataset_name', type=str, required=True, 
+    parser.add_argument('--dataset_name', type=str, default="datacomp_xl_s13b_b90k", 
                         help='Name of the training dataset (e.g., laion2b_s34b_b79k)')
-    parser.add_argument('--output_path', type=str, required=True, 
+    parser.add_argument('--output_path', type=str, default="../models/clip", 
                         help='Path for output TorchScript model')
     parser.add_argument('--tokenizer_dir', type=str, default="../tokenizer_clip",
                         help='Directory to save tokenizer files')
