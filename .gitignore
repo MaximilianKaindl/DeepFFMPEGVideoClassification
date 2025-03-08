@@ -1,2 +1,4 @@
 models/
 resources/
+out/
+*/__pycache__/
