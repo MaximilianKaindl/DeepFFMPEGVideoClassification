@@ -59,12 +59,7 @@ unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d /path/to/install
 
 # Clone and build tokenizers-cpp
 git clone https://github.com/mlc-ai/tokenizers-cpp.git
-cd tokenizers-cpp
-mkdir build && cd build
-cmake ..
-make -j$(nproc)
-sudo make install
-cd ../..
+# see build instructions of tokenizers-cpp
 ```
 Download Openvino Toolkit
 https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux
