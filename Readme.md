@@ -31,8 +31,8 @@ DeepFFmpeg is a powerful, modular framework that integrates state-of-the-art dee
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/deepffmpeg.git
-cd deepffmpeg
+git clone https://github.com/MaximilianKaindl/DeepFFMPEGVideoClassification.git
+cd DeepFFMPEGVideoClassification
 ```
 
 ### 2. Install FFmpeg dependencies
