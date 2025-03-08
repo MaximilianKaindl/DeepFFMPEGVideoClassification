@@ -24,10 +24,10 @@ def setup_directories(args):
 def convert_clip_model(args):
     """Convert CLIP model if it doesn't exist."""
     model_path = os.path.join(args.clip_model_dir, f"clip_{args.clip_model_name.replace('-', '_').lower()}.pt")
-    tokenizer_info_path = os.path.join(args.clip_tokenizer_dir, "tokenizer_info.json")
+    tokenizer_path = args.clip_tokenizer_dir
     
     # Check if model already exists
-    if os.path.exists(model_path) and os.path.exists(tokenizer_info_path):
+    if os.path.exists(model_path) and os.path.exists(tokenizer_path):
         print(f"CLIP model already exists at {model_path}")
         print(f"CLIP tokenizer already exists at {args.clip_tokenizer_dir}")
         return model_path
@@ -62,10 +62,10 @@ def convert_clip_model(args):
 def convert_clap_model(args):
     """Convert CLAP model if it doesn't exist."""
     model_path = os.path.join(args.clap_model_dir, f"msclap{args.clap_version}.pt")
-    tokenizer_config_path = os.path.join(args.clap_tokenizer_dir, "config.json")
+    tokenizer_path = args.clap_tokenizer_dir
     
     # Check if model already exists
-    if os.path.exists(model_path) and os.path.exists(tokenizer_config_path):
+    if os.path.exists(model_path) and os.path.exists(tokenizer_path):
         print(f"CLAP model already exists at {model_path}")
         print(f"CLAP tokenizer already exists at {args.clap_tokenizer_dir}")
         return model_path
