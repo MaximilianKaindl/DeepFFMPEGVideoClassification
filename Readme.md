@@ -31,19 +31,9 @@ git clone https://github.com/MaximilianKaindl/DeepFFMPEGVideoClassification.git
 cd DeepFFMPEGVideoClassification
 ```
 
-### 2. Install FFmpeg dependencies (Optional, not needed for basic CLIP/CLAP or Detection)
+### 2. Install Cuda FFmpeg dependencies (Optional, not needed for basic CLIP/CLAP or Detection)
 
 ```bash
-# Install FFmpeg development libraries 
-sudo apt install -y libass-dev
-sudo apt install -y libfdk-aac-dev
-sudo apt install -y libmp3lame-dev
-sudo apt install -y libopus-dev
-sudo apt-get install -y libvpx-dev
-sudo apt-get install -y libx264-dev
-sudo apt-get install -y libx265-dev
-sudo apt-get install -y libsdl2-dev
-
 # needed for CUDA accel
 sudo apt install nvida-cuda-toolkit
 ```
@@ -125,7 +115,7 @@ python run_conversion.py --use-cuda
 python run_ffmpeg.py \
   --input resources/video/example.mp4 \
   --scene-threshold 0.4 \
-  --clip-model models/clip/clip_vit_b_32.pt \
+  --clip-model models/clip/clip_vit_l_14.pt \
   --categories resources/labels/categories_clip.txt \
   --tokenizer models/clip/tokenizer_clip/tokenizer.json \
 ```
