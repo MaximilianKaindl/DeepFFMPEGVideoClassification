@@ -73,8 +73,8 @@ unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d /path/to/install
 
 ```bash
 # Download OpenVINO Toolkit
-wget https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux/openvino_2025.0.0.0.0_x86_64.tgz
-tar -xzf openvino_2025.0.0.0.0_x86_64.tgz -C /path/to/install
+https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux
+tar -xzf openvino_2025(....) -C /path/to/install
 ```
 
 ### 6. Configure and build FFmpeg
