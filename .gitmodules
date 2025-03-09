@@ -1,0 +1,6 @@
+[submodule "FFmpeg"]
+	path = FFmpeg
+	url = https://github.com/MaximilianKaindl/FFmpeg.git
+[submodule "tokenizers-cpp"]
+	path = tokenizers-cpp
+	url = https://github.com/mlc-ai/tokenizers-cpp
