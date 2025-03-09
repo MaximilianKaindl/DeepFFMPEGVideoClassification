@@ -35,10 +35,10 @@ git clone https://github.com/MaximilianKaindl/DeepFFMPEGVideoClassification.git
 cd DeepFFMPEGVideoClassification
 ```
 
-### 2. Install FFmpeg dependencies
+### 2. Install FFmpeg dependencies (Optional)
 
 ```bash
-# Install FFmpeg development libraries
+# Install FFmpeg development libraries 
 sudo apt install -y libass-dev
 sudo apt install -y libfdk-aac-dev
 sudo apt install -y libmp3lame-dev
@@ -47,49 +47,54 @@ sudo apt-get install -y libvpx-dev
 sudo apt-get install -y libx264-dev
 sudo apt-get install -y libx265-dev
 sudo apt-get install -y libsdl2-dev
+
+# needed for CUDA accel
 sudo apt install nvida-cuda-toolkit
 ```
 
-### 3. Install LibTorch and tokenizers-cpp
+### 3. Build tokenizers-cpp
+
+```bash
+# Clone the repository with submodules
+git clone --recurse-submodules https://github.com/mlc-ai/tokenizers-cpp.git
+cd tokenizers-cpp/example/
+./build_and_run.sh
+```
+
+### 4. Download and extract LibTorch
 
 ```bash
 # Download and extract LibTorch (C++ libraries)
 wget https://download.pytorch.org/libtorch/cu126/libtorch-cxx11-abi-shared-with-deps-2.6.0%2Bcu126.zip
 unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d /path/to/install
-
-# Clone and build tokenizers-cpp
-git clone https://github.com/mlc-ai/tokenizers-cpp.git
-# see build instructions of tokenizers-cpp
 ```
-Download Openvino Toolkit
-https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux
 
-The existing FFMPEG binary was configured like this. If shared libraries are missing, the program wont work. 
-If desired, the program can be confiured differently using my fork listed below.
+### 5. (Optional) Download OpenVINO Toolkit
 
-#### Then set Environment Variables with `set_vars.sh`
-
-- `LIBTORCH_ROOT`: Path to LibTorch installation
-- `TOKENIZER_ROOT`: Path to tokenizer installation
-- `OPENVINO_ROOT`: Path to OpenVINO installation
-
-These variables must be set correctly for the FFmpeg modules to work properly. The configuration script uses these variables to locate the necessary headers and libraries during compilation.
-
-
-### 4. Set up the Python environment
-
-Using Conda (recommended):
 ```bash
-conda env create -f environment.yml
-conda activate deepffmpegvideoclassification
+# Download OpenVINO Toolkit
+wget https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux/openvino_2025.0.0.0.0_x86_64.tgz
+tar -xzf openvino_2025.0.0.0.0_x86_64.tgz -C /path/to/install
 ```
 
-Or using pip:
+### 6. Configure and build FFmpeg
+
 ```bash
-python -m pip install -r requirements.txt
+# Clone the FFmpeg fork
+git clone https://github.com/MaximilianKaindl/FFmpeg.git
+cd FFmpeg
+
+# Set up environment variables
+source ./setup_env.sh
+
+# Clean previous builds
+make clean
+
+# Build FFmpeg
+make -j16
 ```
 
-### 5. Configure environment variables
+### 7. Set environment variables
 
 ```bash
 # Edit the paths in set_vars.sh to point to your installations
@@ -99,22 +104,10 @@ vim set_vars.sh  # Edit paths as needed
 
 # Then source the file
 source ./set_vars.sh
-```
 
-### 6. Download and convert YOLO models (if needed)
-
-```bash
-# Install required packages
-pip install openvino-dev tensorflow
-
-# Download YOLO model
-omz_downloader --name yolo-v4-tiny-tf
-
-# Convert the model to OpenVINO format
-omz_converter --name yolo-v4-tiny-tf
-
-# Download COCO class labels
-wget https://raw.githubusercontent.com/openvinotoolkit/open_model_zoo/refs/heads/master/data/dataset_classes/coco_80cl.txt -O resources/labels/coco_80cl.txt
+# Optionally, add the environment variables to ~/.bashrc
+./setup_env.sh --print-bashrc >> ~/.bashrc
+source ~/.bashrc
 ```
 
 ## ⚙️ Model Conversion
@@ -234,12 +227,7 @@ water
 
 ## ⚠️ Known Issues and Troubleshooting
 
-- **Missing Libraries**: If you encounter errors about missing libraries during FFmpeg compilation, make sure all development packages are installed correctly.
-- **CUDA Compatibility**: Ensure your CUDA version matches the LibTorch build you downloaded.
-- **Path Configuration**: Double-check the paths in `set_vars.sh` to ensure they point to the correct installations. These paths are used by both the build process and runtime scripts.
-- **Missing Dependencies**: You might need to install additional dependencies such as `libfreetype`, `libfontconfig`, and `libxcb` development packages.
-- **CUDA Configuration**: Make sure CUDA is properly installed if you're enabling CUDA features with `--enable-cuda-nvcc` and `--enable-libnpp`.
-- **Model Conversion Failures**: If model conversion fails, try running with the `--verbose` flag for more detailed error messages.
+- **CLAP Traced Model not Cuda compatible**: Currently 
 
 ## 🤝 Contributing
 
@@ -248,49 +236,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📜 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🔄 FFmpeg Fork
-
-This project uses a custom fork of FFmpeg that includes additional DNN modules for CLIP and CLAP model integration. The fork adds specialized filters that enable deep learning-based video and audio analysis directly within the FFmpeg pipeline.
-
-```bash
-# Clone the FFmpeg fork
-git clone https://github.com/MaximilianKaindl/FFmpeg.git
-
-# Configure and build with required modules
-cd ffmpeg-deepclassification
-./configure \
-    --enable-gpl \
-    --enable-debug \
-    --enable-openssl \
-    --enable-libx264 \
-    --enable-libx265 \
-    --enable-libvpx \
-    --enable-libfdk-aac \
-    --enable-libmp3lame \
-    --enable-libopus \
-    --enable-libass \
-    --enable-libfreetype \
-    --enable-libfontconfig \
-    --enable-libxcb \
-    --enable-sdl2 \
-    --enable-libopenvino \
-    --enable-libtorch \
-    --enable-libtokenizers \
-    --enable-cuda-nvcc \
-    --enable-libnpp \
-    --enable-nonfree \
-    --extra-cflags="-I$LIBTORCH_HEADER \
-                    -I$LIBTORCH_HEADER_CSRC \
-                    -I$TOKENIZER_HEADER \
-                    -I$OPENVINO_HEADER" \
-    --extra-ldflags="-L$LIBTORCH_LIB \
-                     -L$TOKENIZER_LIB \
-                     -L$OPENVINO_LIB"
-
-make -j$(nproc)
-sudo make install
-```
 
 > **Note:** Make sure to set the correct paths to LibTorch, tokenizers-cpp, and OpenVINO in your `set_vars.sh` file before building FFmpeg.
 
