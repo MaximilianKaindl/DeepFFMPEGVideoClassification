@@ -5,7 +5,7 @@
 ![Python Version](https://img.shields.io/badge/Python-3.10-blue)
 ![FFmpeg](https://img.shields.io/badge/FFmpeg-Latest-red)
 
-This Project demonstrates a simplified interface for interaction with the FFMPEG DNN functions. 
+This Project demonstrates a simplified interface for interaction with the new FFmpeg DNN classification filter that uses CLIP and CLAP. This implementation currently is only availiable on my Fork.
 
 ## 🔍 Features
 
