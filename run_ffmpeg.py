@@ -12,7 +12,7 @@ class FFmpegCommandBuilder:
         # Default directories
         self.models_dir = "models"
         self.resources_dir = "resources"
-        self.ffmpeg_path = "./ffmpeg"  # Assuming ffmpeg binary is in current directory
+        self.ffmpeg_path = "./FFmpeg/ffmpeg"  # Assuming ffmpeg binary is in current directory
 
         # Environment variables
         self.env_vars = {
