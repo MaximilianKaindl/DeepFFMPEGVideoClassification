@@ -5,25 +5,21 @@
 ![Python Version](https://img.shields.io/badge/Python-3.10-blue)
 ![FFmpeg](https://img.shields.io/badge/FFmpeg-Latest-red)
 
-DeepFFmpeg is a powerful, modular framework that integrates state-of-the-art deep learning models with FFmpeg to enable advanced video and audio analysis capabilities. This project allows you to perform object detection, visual content classification, and audio classification directly within the FFmpeg pipeline.
+This Project demonstrates a simplified interface for interaction with the FFMPEG DNN functions. 
 
 ## 🔍 Features
 
-- **Multi-modal Analysis**: Combine YOLO object detection, CLIP visual understanding, and CLAP audio classification for comprehensive media analysis
-- **Scene Detection**: Analyze only significant scene changes to improve performance and accuracy
-- **Flexible Pipelines**: Create custom analysis pipelines with different models and configurations
-- **Output Options**: Generate annotated videos and detailed analysis logs
+- **Multi-modal Analysis**: CLIP visual understanding, and CLAP audio classification for comprehensive media analysis. (Sample Detection Model and Command Builder also included)
 - **GPU Acceleration**: Leverage CUDA for faster processing
 - **Model Conversion**: Automated tools to convert and test CLIP and CLAP models
 
 ## 📋 Requirements
 
 - Python 3.10+
-- FFmpeg with custom DNN modules (see [FFmpeg fork](#ffmpeg-fork))
-- LibTorch C++ libraries
-- tokenizers-cpp
-- OpenVINO Toolkit
-- Additional FFmpeg development libraries
+- FFmpeg (Submodule included, clone recursively)
+- LibTorch C++ libraries (Download as described below)
+- tokenizers-cpp (Submodule included, clone recursively)
+- OpenVINO Toolkit (optional, for detection only)
 - GPU support (optional but recommended)
 
 ## 🚀 Installation
@@ -35,7 +31,7 @@ git clone https://github.com/MaximilianKaindl/DeepFFMPEGVideoClassification.git
 cd DeepFFMPEGVideoClassification
 ```
 
-### 2. Install FFmpeg dependencies (Optional)
+### 2. Install FFmpeg dependencies (Optional, not needed for basic CLIP/CLAP or Detection)
 
 ```bash
 # Install FFmpeg development libraries 
@@ -64,7 +60,9 @@ cd tokenizers-cpp/example/
 ### 4. Download and extract LibTorch
 
 ```bash
-# Download and extract LibTorch (C++ libraries)
+# Download and extract LibTorch (C++ libraries) from https://pytorch.org/get-started/locally/
+
+# sample installation Linux Libtorch CUDA 12.6
 wget https://download.pytorch.org/libtorch/cu126/libtorch-cxx11-abi-shared-with-deps-2.6.0%2Bcu126.zip
 unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d /path/to/install
 ```
@@ -73,7 +71,7 @@ unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d /path/to/install
 
 ```bash
 # Download OpenVINO Toolkit
-https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux
+https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux     # choose the appropriate version
 tar -xzf openvino_2025(....) -C /path/to/install
 ```
 
@@ -84,8 +82,8 @@ tar -xzf openvino_2025(....) -C /path/to/install
 git clone https://github.com/MaximilianKaindl/FFmpeg.git
 cd FFmpeg
 
-# Set up environment variables
-source ./setup_env.sh
+# Set up environment 
+source ./setup_env.sh   # starts FFmpeg configure
 
 # Clean previous builds
 make clean
@@ -94,20 +92,11 @@ make clean
 make -j16
 ```
 
-### 7. Set environment variables
+### 7. Set bashrc (optional)
 
 ```bash
-# Edit the paths in set_vars.sh to point to your installations
-# The variables in this file are critical for both building FFmpeg and running the scripts
-# LIBTORCH_ROOT, TOKENIZER_ROOT, and OPENVINO_ROOT must be set correctly
-vim set_vars.sh  # Edit paths as needed
-
-# Then source the file
-source ./set_vars.sh
-
-# Optionally, add the environment variables to ~/.bashrc
-./setup_env.sh --print-bashrc >> ~/.bashrc
-source ~/.bashrc
+#env variables are only saved in current terminal so consider adding the env variables to ~/.bashrc
+./setup_env.sh --print-bashrc
 ```
 
 ## ⚙️ Model Conversion
@@ -206,23 +195,6 @@ deepffmpeg/
 ├── requirements.txt             # Pip requirements file
 ├── run_conversion.py            # Model conversion script
 ├── run_ffmpeg.py                # Main script for running analysis
-└── set_vars.sh                  # Environment setup script
-```
-
-## 🔬 Configuration
-
-### Custom Labels and Categories
-
-You can create custom category files for both CLIP and CLAP models:
-
-```
-# Example CLIP categories file
-person
-car
-building
-tree
-sky
-water
 ```
 
 ## ⚠️ Known Issues and Troubleshooting
@@ -236,8 +208,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📜 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-> **Note:** Make sure to set the correct paths to LibTorch, tokenizers-cpp, and OpenVINO in your `set_vars.sh` file before building FFmpeg.
 
 ## 📚 References
 
