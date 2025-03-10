@@ -27,7 +27,7 @@ This Project demonstrates a simplified interface for interaction with the new FF
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/MaximilianKaindl/DeepFFMPEGVideoClassification.git
+git clone --recurse-submodules https://github.com/MaximilianKaindl/DeepFFMPEGVideoClassification.git
 cd DeepFFMPEGVideoClassification
 ```
 
@@ -41,7 +41,7 @@ sudo apt install nvida-cuda-toolkit
 ### 3. Build tokenizers-cpp
 
 ```bash
-# Clone the repository with submodules
+# Clone the repository with submodules if not already existing
 git clone --recurse-submodules https://github.com/mlc-ai/tokenizers-cpp.git
 cd tokenizers-cpp/example/
 ./build_and_run.sh
