@@ -109,6 +109,9 @@ python run_conversion.py --skip-clip
 
 # Use GPU acceleration during conversion
 python run_conversion.py --use-cuda
+
+# Usage Prompt
+python run_conversion.py --usage
 ```
 
 ## 🔧 Usage
@@ -129,12 +132,15 @@ python run_ffmpeg.py \
   --input resources/video/example.mp4 \
   --scene-threshold 0.4 \
   --clip-categories resources/labels/categories_clip.txt \
+
+# Usage Prompt
+python run_ffmpeg.py --usage
 ```
 
 ### Running audio analysis with CLAP
 
 ```bash
-python run_ffmpeg.py
+python run_ffmpeg.py \
   --input resources/audio/blues.mp3 \
   --clap-labels resources/labels/labels_clap_music.txt \
 ```
@@ -191,8 +197,6 @@ deepffmpeg/
 ```
 
 ## ⚠️ Known Issues and Troubleshooting
-
-- **CLAP Traced Model not Cuda compatible**: Currently 
 
 ## 🤝 Contributing
 

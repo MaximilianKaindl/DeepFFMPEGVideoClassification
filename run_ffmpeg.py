@@ -123,13 +123,27 @@ class FFmpegCommandBuilder:
         conf = args.confidence if args.confidence else 0.5
         tokenizer = args.audio_tokenizer
         
-        # If tokenizer not specified but we have model_config, use tokenizer from config
-        if not tokenizer and self.model_config and "clap_model" in self.model_config:
-            tokenizer = self.model_config["clap_model"]["tokenizer_dir"]
-            if tokenizer:
-                print(f"Using CLAP tokenizer from config: {tokenizer}")
+        # Determine which device to use for CLAP
+        clap_device = args.device  # Default to user-specified device
         
-        clap_filter = f"dnn_classify=dnn_backend=torch:is_audio=1:sample_rate=48000:device=cpu:model={args.clap_model}"  # fixed cpu for now
+        # If tokenizer not specified but we have model_config, use tokenizer from config
+        if self.model_config and "clap_model" in self.model_config:
+            # Get tokenizer from config if not specified
+            if not tokenizer:
+                tokenizer = self.model_config["clap_model"].get("tokenizer_path")
+                if tokenizer:
+                    print(f"Using CLAP tokenizer from config: {tokenizer}")
+            
+            # Check if device_traced is specified in config
+            device_traced = self.model_config["clap_model"].get("device_traced")
+            if device_traced == "cuda":
+                if args.device != "cuda":
+                    print("Warning: CLAP model was traced with CUDA but requested device is CPU.")
+                    print("Using CUDA for CLAP as it's required for models traced with CUDA.")
+                clap_device = "cuda"
+        
+        # Build the filter with correct device
+        clap_filter = f"dnn_classify=dnn_backend=torch:is_audio=1:device={clap_device}:model={args.clap_model}"
         
         if tokenizer:
             clap_filter += f":tokenizer={tokenizer}"
@@ -287,7 +301,7 @@ def parse_arguments():
                         help='Scene change threshold')
     
     # Confidence threshold
-    parser.add_argument('--confidence', type=float, default=0.1,
+    parser.add_argument('--confidence', type=float, default=0.3,
                         help='Confidence threshold for detections and classifications (default: 0.05)')
     
     # Device selection

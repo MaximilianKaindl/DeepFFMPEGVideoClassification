@@ -60,15 +60,39 @@ def convert_clip_model(args):
         return None
 
 def convert_clap_model(args):
-    """Convert CLAP model if it doesn't exist."""
+    """Convert CLAP model if it doesn't exist or device changed."""
     model_path = os.path.join(args.clap_model_dir, f"msclap{args.clap_version}.pt")
     tokenizer_path = args.clap_tokenizer_dir
+    tokenizer_info_path = os.path.join(tokenizer_path, "clap_tokenizer_info.json")
     
-    # Check if model already exists
+    # Check device consistency if model exists
+    retrace_needed = False
+    current_device = "cuda" if args.use_cuda else "cpu"
+    
     if os.path.exists(model_path) and os.path.exists(tokenizer_path):
-        print(f"CLAP model already exists at {model_path}")
-        print(f"CLAP tokenizer already exists at {args.clap_tokenizer_dir}")
-        return model_path
+        # Check if we need to retrace due to device change
+        if os.path.exists(tokenizer_info_path):
+            try:
+                with open(tokenizer_info_path, "r") as f:
+                    tokenizer_info = json.load(f)
+                
+                previous_device = tokenizer_info.get("device_traced", "unknown")
+                if previous_device != current_device:
+                    print(f"Warning: Existing model was traced with {previous_device.upper()}, but current device is {current_device.upper()}")
+                    response = input(f"Would you like to retrace with {current_device.upper()}? (y/n): ")
+                    retrace_needed = response.lower() in ['y', 'yes']
+                    if not retrace_needed:
+                        print(f"Using existing model traced with {previous_device.upper()}")
+                        return model_path
+            except Exception as e:
+                print(f"Could not read tokenizer info: {e}")
+        
+        if not retrace_needed:
+            print(f"CLAP model already exists at {model_path}")
+            print(f"CLAP tokenizer already exists at {args.clap_tokenizer_dir}")
+            return model_path
+        else:
+            print(f"Retracing CLAP model with {current_device.upper()}...")
     
     # Convert model
     print(f"\n=== Converting CLAP model (version {args.clap_version}) ===")
@@ -186,6 +210,9 @@ def test_clap_model(args, model_path):
 
 def save_config(args, test_results):
     """Save configuration data for future reference."""
+    # Determine device used for CLAP tracing
+    clap_device = "cuda" if args.use_cuda and not args.skip_clap else "cpu"
+    
     config = {
         "clip_model": {
             "name": args.clip_model_name,
@@ -198,7 +225,8 @@ def save_config(args, test_results):
             "version": args.clap_version,
             "path": os.path.join(args.clap_model_dir, f"msclap{args.clap_version}.pt"),
             "tokenizer_path": os.path.join(args.clap_tokenizer_dir, "tokenizer.json"),
-            "tested": test_results.get("clap", False)
+            "tested": test_results.get("clap", False),
+            "device_traced": clap_device 
         }
     }
     
@@ -208,7 +236,45 @@ def save_config(args, test_results):
     
     print(f"\nConfiguration saved to {config_path}")
 
+def print_help():
+    """Print a detailed help message with examples."""
+    help_text = """
+    CLIP and CLAP Model Conversion Tool
+    ==================================
+    
+    This tool converts CLIP (image classification) and CLAP (audio classification) 
+    models to TorchScript format for use with FFmpeg.
+    
+    Examples:
+      # Convert both CLIP and CLAP models with default settings
+      python run_conversion.py
+    
+      # Convert only CLAP model with CUDA support
+      python run_conversion.py --skip_clip --use_cuda
+    
+      # Convert CLIP model with specific version and dataset
+      python run_conversion.py --skip_clap --clip_model_name ViT-B-32 --clip_dataset laion2b_s34b_b79k
+
+      To get all available CLIP models:
+      python converters/clip_to_pt.py --list_models
+    
+      # Convert CLAP model with specific version using CPU
+      python run_conversion.py --skip_clip --clap_version 2022
+    
+    Notes:
+      - Models will be saved to the specified model directories
+      - Device information (CPU vs CUDA) will be stored in the configuration
+      - CUDA-traced CLAP models must be executed with CUDA
+      - If a model exists and was traced with a different device than requested,
+        you will be prompted to retrace it for device compatibility
+    """
+    print(help_text)
+
 def main():
+    if "--usage" in sys.argv or "-u" in sys.argv:
+        print_help()
+        sys.exit(0)
+
     parser = argparse.ArgumentParser(description="Convert and test CLIP and CLAP models")
     
     # Directory structure arguments
@@ -291,6 +357,8 @@ def main():
     if not args.skip_clap:
         if clap_model_path:
             print(f"CLAP model: Converted successfully to {clap_model_path}")
+            device_info = "CUDA" if args.use_cuda else "CPU"
+            print(f"CLAP model device: Traced with {device_info}")
             if not args.skip_tests:
                 status = "Passed" if test_results.get("clap", False) else "Failed or skipped"
                 print(f"CLAP model testing: {status}")

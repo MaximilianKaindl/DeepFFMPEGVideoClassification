@@ -137,7 +137,8 @@ def export_clap_model(output_dir: str, version: str, use_cuda: bool, audio_path:
                 "model_config": {
                     "sample_rate": sample_rate,
                     "duration": duration
-                }
+                },
+                "device_traced": "cuda" if use_cuda and torch.cuda.is_available() else "cpu"
             }
             
             # Save metadata
@@ -165,6 +166,7 @@ def export_clap_model(output_dir: str, version: str, use_cuda: bool, audio_path:
         print(f"- Output directory: {output_dir}")
         print(f"- Model file: {model_path}")
         print(f"- Tokenizer saved to: {tokenizer_save_dir}")
+        print(f"- Device used for tracing: {'CUDA' if use_cuda and torch.cuda.is_available() else 'CPU'}")
         
         return True
         
