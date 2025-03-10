@@ -69,7 +69,7 @@ class FFmpegCommandBuilder:
         # Default YOLO parameters
         model_type = "yolov4"
         confidence = args.confidence if args.confidence else 0.1
-        labels_path = args.labels if args.labels else "resources/labels/coco_80cl.txt"
+        labels_path = args.detect_labels if args.detect_labels else "resources/labels/coco_80cl.txt"
         anchors = args.anchors if args.anchors else "81&82&135&169&344&319"
         nb_classes = args.nb_classes if args.nb_classes else 80
         
@@ -85,7 +85,7 @@ class FFmpegCommandBuilder:
             return ""
             
         # Check if we have specified CLIP parameters
-        conf = args.confidence if args.confidence else 0.05
+        conf = args.confidence if args.confidence else 0.5
         tokenizer = args.tokenizer
         
         # If tokenizer not specified but we have model_config, use tokenizer from config
@@ -101,10 +101,10 @@ class FFmpegCommandBuilder:
         if tokenizer:
             clip_filter += f":tokenizer={tokenizer}"
         
-        if args.categories:
-            clip_filter += f":categories={args.categories}"
-        elif args.labels:
-            clip_filter += f":labels={args.labels}"
+        if args.clip_categories:
+            clip_filter += f":categories={args.clip_categories}"
+        elif args.clip_labels:
+            clip_filter += f":labels={args.clip_labels}"
         else:
             print("Warning: No categories or labels specified for CLIP. Using default.")
             clip_filter += f":labels=resources/labels/labels_clip_animal.txt"
@@ -129,7 +129,7 @@ class FFmpegCommandBuilder:
             if tokenizer:
                 print(f"Using CLAP tokenizer from config: {tokenizer}")
         
-        clap_filter = f"dnn_classify=dnn_backend=torch:is_audio=1:device=cpu:model={args.clap_model}"  # fixed cpu for now
+        clap_filter = f"dnn_classify=dnn_backend=torch:is_audio=1:sample_rate=48000:device=cpu:model={args.clap_model}"  # fixed cpu for now
         
         if tokenizer:
             clap_filter += f":tokenizer={tokenizer}"
@@ -137,10 +137,10 @@ class FFmpegCommandBuilder:
         clap_filter += f":confidence={conf}"
 
         # Determine if we're using categories or labels for audio
-        if args.audio_categories:
-            clap_filter += f":categories={args.audio_categories}"
-        elif args.audio_labels:
-            clap_filter += f":labels={args.audio_labels}"
+        if args.clap_categories:
+            clap_filter += f":categories={args.clap_categories}"
+        elif args.clap_labels:
+            clap_filter += f":labels={args.clap_labels}"
         else:
             # Default case
             print("Warning: No categories or labels specified for CLAP. Using default.")
@@ -171,8 +171,8 @@ class FFmpegCommandBuilder:
         if not self.model_config:
             return args
 
-        clip_input = args.categories or args.labels
-        clap_input = args.audio_categories or args.audio_labels    
+        clip_input = args.clip_categories or args.clip_labels
+        clap_input = args.clap_categories or args.clap_labels
         
         # Apply CLIP model defaults
         if clip_input and not args.clip_model and self.model_config.get("clip_model", {}).get("path"):
@@ -285,7 +285,7 @@ def parse_arguments():
                         help='Scene change threshold (default: 0.4)')
     
     # Confidence threshold
-    parser.add_argument('--confidence', type=float, default=0.05,
+    parser.add_argument('--confidence', type=float, default=0.5,
                         help='Confidence threshold for detections and classifications (default: 0.05)')
     
     # Device selection
@@ -296,7 +296,7 @@ def parse_arguments():
     detection_group = parser.add_argument_group('YOLO Detection Options')
     detection_group.add_argument('--detect-model', 
                                 help='Path to YOLO detection model (.xml)')
-    detection_group.add_argument('--labels', 
+    detection_group.add_argument('--detect-labels', 
                                 help='Path to labels file for detection')
     detection_group.add_argument('--anchors', 
                                 help='Anchor values for YOLO (comma-separated)')
@@ -307,8 +307,14 @@ def parse_arguments():
     clip_group = parser.add_argument_group('CLIP Classification Options')
     clip_group.add_argument('--clip-model', 
                            help='Path to CLIP model (.pt)')
-    clip_group.add_argument('--categories', 
-                           help='Path to categories file for CLIP')
+    
+    # Create mutually exclusive group for CLIP labels/categories
+    clip_labels_group = clip_group.add_mutually_exclusive_group()
+    clip_labels_group.add_argument('--clip-categories', 
+                                  help='Path to categories file for CLIP')
+    clip_labels_group.add_argument('--clip-labels', 
+                                  help='Path to labels file for CLIP')
+    
     clip_group.add_argument('--tokenizer', 
                            help='Path to tokenizer file for CLIP')
     clip_group.add_argument('--target', 
@@ -318,10 +324,14 @@ def parse_arguments():
     clap_group = parser.add_argument_group('CLAP Audio Classification Options')
     clap_group.add_argument('--clap-model', 
                            help='Path to CLAP model (.pt)')
-    clap_group.add_argument('--audio-categories', 
-                           help='Path to categories file for CLAP')
-    clap_group.add_argument('--audio-labels', 
-                           help='Path to labels file for CLAP')
+    
+    # Create mutually exclusive group for CLAP labels/categories
+    clap_labels_group = clap_group.add_mutually_exclusive_group()
+    clap_labels_group.add_argument('--clap-categories', 
+                                  help='Path to categories file for CLAP')
+    clap_labels_group.add_argument('--clap-labels', 
+                                  help='Path to labels file for CLAP')
+    
     clap_group.add_argument('--audio-tokenizer', 
                            help='Path to tokenizer file for CLAP')
     
