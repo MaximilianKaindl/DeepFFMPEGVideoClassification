@@ -191,18 +191,14 @@ def save_config(args, test_results):
             "name": args.clip_model_name,
             "dataset": args.clip_dataset,
             "path": os.path.join(args.clip_model_dir, f"clip_{args.clip_model_name.replace('-', '_').lower()}.pt"),
-            "tokenizer_dir": args.clip_tokenizer_dir,
+            "tokenizer_path": os.path.join(args.clip_tokenizer_dir, "tokenizer.json"),
             "tested": test_results.get("clip", False)
         },
         "clap_model": {
             "version": args.clap_version,
             "path": os.path.join(args.clap_model_dir, f"msclap{args.clap_version}.pt"),
-            "tokenizer_dir": args.clap_tokenizer_dir,
+            "tokenizer_path": os.path.join(args.clap_tokenizer_dir, "tokenizer.json"),
             "tested": test_results.get("clap", False)
-        },
-        "resources": {
-            "audio_path": args.audio_path,
-            "image_path": args.image_path
         }
     }
     

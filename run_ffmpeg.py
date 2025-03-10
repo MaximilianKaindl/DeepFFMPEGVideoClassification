@@ -13,6 +13,9 @@ class FFmpegCommandBuilder:
         self.models_dir = "models"
         self.resources_dir = "resources"
         self.ffmpeg_path = "./FFmpeg/ffmpeg"  # Assuming ffmpeg binary is in current directory
+        
+        # Load model configuration if it exists
+        self.model_config = self.load_model_config()
 
         # Environment variables
         self.env_vars = {
@@ -23,6 +26,17 @@ class FFmpegCommandBuilder:
 
         # Check environment variables
         self.check_env_vars()
+
+    def load_model_config(self):
+        """Load model configuration from models_config.json if it exists"""
+        config_path = os.path.join(self.models_dir, "models_config.json")
+        if os.path.exists(config_path):
+            try:
+                with open(config_path, "r") as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"Warning: Failed to load model configuration: {e}")
+        return None
 
     def check_env_vars(self):
         """Check if required environment variables are set"""
@@ -72,10 +86,20 @@ class FFmpegCommandBuilder:
             
         # Check if we have specified CLIP parameters
         conf = args.confidence if args.confidence else 0.05
+        tokenizer = args.tokenizer
+        
+        # If tokenizer not specified but we have model_config, use tokenizer from config
+        if not tokenizer and self.model_config and "clip_model" in self.model_config:
+            tokenizer = self.model_config["clip_model"]["tokenizer_dir"]
+            if tokenizer:
+                print(f"Using CLIP tokenizer from config: {tokenizer}")
         
         # Determine if we're using categories or labels
         clip_filter = f"dnn_classify=dnn_backend=torch:model={args.clip_model}"
-        clip_filter += f":device={args.device}:confidence={conf}:tokenizer={args.tokenizer}"
+        clip_filter += f":device={args.device}:confidence={conf}"
+        
+        if tokenizer:
+            clip_filter += f":tokenizer={tokenizer}"
         
         if args.categories:
             clip_filter += f":categories={args.categories}"
@@ -96,8 +120,21 @@ class FFmpegCommandBuilder:
         if not args.clap_model:
             return ""
             
-        conf = args.confidence if args.confidence else 0.05
-        clap_filter = f"dnn_classify=dnn_backend=torch:is_audio=1:device={args.device}:model={args.clap_model}:tokenizer={args.audio_tokenizer}:confidence={conf}"
+        conf = args.confidence if args.confidence else 0.5
+        tokenizer = args.audio_tokenizer
+        
+        # If tokenizer not specified but we have model_config, use tokenizer from config
+        if not tokenizer and self.model_config and "clap_model" in self.model_config:
+            tokenizer = self.model_config["clap_model"]["tokenizer_dir"]
+            if tokenizer:
+                print(f"Using CLAP tokenizer from config: {tokenizer}")
+        
+        clap_filter = f"dnn_classify=dnn_backend=torch:is_audio=1:device=cpu:model={args.clap_model}"  # fixed cpu for now
+        
+        if tokenizer:
+            clap_filter += f":tokenizer={tokenizer}"
+            
+        clap_filter += f":confidence={conf}"
 
         # Determine if we're using categories or labels for audio
         if args.audio_categories:
@@ -129,9 +166,44 @@ class FFmpegCommandBuilder:
             
         return avg_filter
 
+    def apply_model_defaults(self, args):
+        """Apply defaults from model configuration if arguments are not provided"""
+        if not self.model_config:
+            return args
+
+        clip_input = args.categories or args.labels
+        clap_input = args.audio_categories or args.audio_labels    
+        
+        # Apply CLIP model defaults
+        if clip_input and not args.clip_model and self.model_config.get("clip_model", {}).get("path"):
+            clip_path = self.model_config["clip_model"]["path"]
+            if os.path.exists(clip_path):
+                args.clip_model = clip_path
+                print(f"Using default CLIP model from config: {clip_path}")
+                
+                # Also set tokenizer if not provided
+                if not args.tokenizer and self.model_config["clip_model"].get("tokenizer_path"):
+                    args.tokenizer = self.model_config["clip_model"]["tokenizer_path"]
+                    print(f"Using default CLIP tokenizer from config: {args.tokenizer}")
+        
+        # Apply CLAP model defaults
+        if clap_input and not args.clap_model and self.model_config.get("clap_model", {}).get("path"):
+            clap_path = self.model_config["clap_model"]["path"]
+            if os.path.exists(clap_path):
+                args.clap_model = clap_path
+                print(f"Using default CLAP model from config: {clap_path}")
+                
+                # Also set tokenizer if not provided
+                if not args.audio_tokenizer and self.model_config["clap_model"].get("tokenizer_path"):
+                    args.audio_tokenizer = self.model_config["clap_model"]["tokenizer_path"]
+                    print(f"Using default CLAP tokenizer from config: {args.audio_tokenizer}")
+        
+        return args
+
     def build_command(self, args):
         """Build the complete FFmpeg command based on arguments"""
-        # Check for required models
+        # Apply defaults from model configuration
+        args = self.apply_model_defaults(args)
         
         # Base command
         cmd = [self.ffmpeg_path]
