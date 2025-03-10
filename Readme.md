@@ -75,7 +75,7 @@ tar -xzf openvino_2025(....) -C /path/to/install
 git clone https://github.com/MaximilianKaindl/FFmpeg.git
 cd FFmpeg
 
-# take a look at what parts you need, use --use_cuda if downloaded Libtorch with cuda
+# take a look at what parts you need, use --cuda if downloaded Libtorch with cuda
 ./setup.sh --help
 
 # Important - Set installations paths of libtorch, tokenizers-cpp and openvino
