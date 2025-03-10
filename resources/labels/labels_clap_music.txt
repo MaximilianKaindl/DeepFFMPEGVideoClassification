@@ -1,5 +1,7 @@
-jazz music
-blues music
-rock music 
+rock music
+jazz music 
 classical music
-electronic music
+pop music
+blues music
+dog barking 
+person speaking
