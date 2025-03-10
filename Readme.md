@@ -89,6 +89,10 @@ make -j16
 ./setup_env.sh --print-bashrc
 ```
 
+### 8. Install Python env
+
+choose conda or python venv and install environment.yml or requirements.txt
+
 ## ⚙️ Model Conversion
 
 The project includes a model conversion tool (`run_conversion.py`) that handles downloading, converting, and testing CLIP and CLAP models:
