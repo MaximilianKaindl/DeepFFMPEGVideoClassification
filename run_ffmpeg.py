@@ -228,17 +228,18 @@ class FFmpegCommandBuilder:
             
             # Add video stream processing if needed
             if args.detect_model or args.clip_model:
-                scene_filter = f"select='gt(scene,{args.scene_threshold})'"
+                # Only add scene filter if threshold is positive
+                scene_filter = f"select='gt(scene,{args.scene_threshold})'," if args.scene_threshold > 0 else ""
                 
                 if args.detect_model and args.clip_model:
                     # Both detection and CLIP
-                    video_filter = f"[0:v] {scene_filter},{self.build_detection_filter(args)},{self.build_clip_filter(args)} [video]"
+                    video_filter = f"[0:v] {scene_filter}{self.build_detection_filter(args)},{self.build_clip_filter(args)} [video]"
                 elif args.detect_model:
                     # Detection only
-                    video_filter = f"[0:v] {scene_filter},{self.build_detection_filter(args)} [video]"
+                    video_filter = f"[0:v] {scene_filter}{self.build_detection_filter(args)} [video]"
                 else:
                     # CLIP only
-                    video_filter = f"[0:v] {scene_filter},{self.build_clip_filter(args)} [video]"
+                    video_filter = f"[0:v] {scene_filter}{self.build_clip_filter(args)} [video]"
                     
                 filter_complex.append(video_filter)
                 
@@ -253,9 +254,10 @@ class FFmpegCommandBuilder:
             # Video-only processing uses -vf
             filters = []
             
-            # Scene detection
-            filters.append(f"select='gt(scene,{args.scene_threshold})'")
-            
+            # Only add scene detection if threshold is positive
+            if args.scene_threshold > 0:
+                filters.append(f"select='gt(scene,{args.scene_threshold})'")
+                
             # Add detection if needed
             if args.detect_model:
                 filters.append(self.build_detection_filter(args))
@@ -281,11 +283,11 @@ def parse_arguments():
     parser.add_argument('--verbose', action='store_true', help='Enable verbose output')
     
     # Scene detection
-    parser.add_argument('--scene-threshold', type=float, default=0.4, 
-                        help='Scene change threshold (default: 0.4)')
+    parser.add_argument('--scene-threshold', type=float, default=-1.0, 
+                        help='Scene change threshold')
     
     # Confidence threshold
-    parser.add_argument('--confidence', type=float, default=0.5,
+    parser.add_argument('--confidence', type=float, default=0.1,
                         help='Confidence threshold for detections and classifications (default: 0.05)')
     
     # Device selection
