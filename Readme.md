@@ -121,10 +121,7 @@ This project can be set up using either Conda or Python's built-in venv module. 
 conda env create -f environment.yml
 
 # Activate the environment
-conda activate myproject
-
-# Verify installation
-python -c "import sys; print(sys.executable); import [main_package]; print([main_package].__version__)"
+conda activate deepffmpegvideoclassification
 ```
 
 ##### Option 2: Using Python venv
@@ -144,7 +141,6 @@ source .venv/bin/activate
 2. Install dependencies:
 
 ```bash
-# Install from requirements.txt
 pip install -r requirements.txt
 ```
 
