@@ -124,7 +124,7 @@ python run_ffmpeg.py \
 python run_ffmpeg.py \
   --input resources/video/example.mp4 \
   --scene-threshold 0.4 \
-  --categories resources/labels/categories_clip.txt \
+  --clip-categories resources/labels/categories_clip.txt \
 ```
 
 ### Running audio analysis with CLAP
@@ -143,10 +143,10 @@ python run_ffmpeg.py \
   --scene-threshold 0.4 \
   --confidence 0.1 \
   --detect-model models/detect/public/yolo-v4-tiny-tf/FP16/yolo-v4-tiny-tf.xml \
-  --labels resources/labels/coco_80cl.txt \
+  --detect-labels resources/labels/coco_80cl.txt \
   --anchors "81&82&135&169&344&319" \
   --nb-classes 80 \
-  --labels resources/labels/labels_clip_person.txt \
+  --clip-labels resources/labels/labels_clip_person.txt \
 ```
 
 ## 📊 Output Format
