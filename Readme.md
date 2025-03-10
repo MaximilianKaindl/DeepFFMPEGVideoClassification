@@ -72,8 +72,18 @@ tar -xzf openvino_2025(....) -C /path/to/install
 git clone https://github.com/MaximilianKaindl/FFmpeg.git
 cd FFmpeg
 
+# take a look at what parts you need
+./setup.sh --help
+
+# Important - Set installations paths of libtorch, tokenizers-cpp and openvino
+# Lines 48-50 in the script
+# default setting is
+# ./libtorch
+# ./tokenizers-cpp
+# /opt/intel/openvino
+
 # Set up environment 
-source ./setup_env.sh   # starts FFmpeg configure
+source ./setup.sh   # starts FFmpeg configure
 
 # Clean previous builds
 make clean
@@ -86,7 +96,7 @@ make -j16
 
 ```bash
 #env variables are only saved in current terminal so consider adding the env variables to ~/.bashrc
-./setup_env.sh --print-bashrc
+./setup.sh --print-bashrc
 ```
 
 ### 8. Install Python env
