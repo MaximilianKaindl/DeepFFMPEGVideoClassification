@@ -111,28 +111,32 @@ python run_conversion.py --use-cuda
 
 ### Running a basic visual analysis with CLIP
 
+If Model testing was done after conversion, a models_config.json gets created in /models. 
+If not specified in the arguments, those models and tokenizers will be default.
+
 ```bash
+python run_ffmpeg.py \
+  --input resources/images/cat.jpg \
+  --clip-labels resources/labels/labels_clip_animal.txt
+
+# Hint: default temperature is high, so results are not that decisive 
+
 python run_ffmpeg.py \
   --input resources/video/example.mp4 \
   --scene-threshold 0.4 \
-  --clip-model models/clip/clip_vit_l_14.pt \
   --categories resources/labels/categories_clip.txt \
-  --tokenizer models/clip/tokenizer_clip/tokenizer.json \
 ```
 
 ### Running audio analysis with CLAP
 
 ```bash
-python run_ffmpeg.py \
-  --input resources/audio/sample.mp3 \
-  --device cpu \
-  --clap-model models/clap/msclap2023.pt \
-  --audio-labels resources/labels/categories_clap.txt \
-  --audio-tokenizer models/clap/tokenizer_clap/tokenizer.json \
+python run_ffmpeg.py
+  --input resources/audio/blues.mp3 \
+  --clap-labels resources/labels/labels_clap_music.txt \
 ```
 
-### Complete pipeline with detection, CLIP and CLAP
-
+### Complete pipeline with detection and CLIP
+only works when FFMPEG is built with Openvino
 ```bash
 python run_ffmpeg.py \
   --input resources/video/sample.mp4 \
@@ -142,12 +146,7 @@ python run_ffmpeg.py \
   --labels resources/labels/coco_80cl.txt \
   --anchors "81&82&135&169&344&319" \
   --nb-classes 80 \
-  --clip-model models/clip/clip_vit_b_32.pt \
-  --tokenizer models/clip/tokenizer_clip/tokenizer.json \
   --labels resources/labels/labels_clip_person.txt \
-  --clap-model models/clap/msclap2023.pt \
-  --audio-tokenizer models/clap/tokenizer_clap/tokenizer.json \
-  --output-video output/annotated_video.mp4
 ```
 
 ## 📊 Output Format
