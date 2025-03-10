@@ -52,6 +52,9 @@ cd tokenizers-cpp/example/
 ```bash
 # Download and extract LibTorch (C++ libraries) from https://pytorch.org/get-started/locally/
 
+# sample installation Linux Libtorch CPU
+https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.6.0%2Bcpu.zip
+
 # sample installation Linux Libtorch CUDA 12.6
 wget https://download.pytorch.org/libtorch/cu126/libtorch-cxx11-abi-shared-with-deps-2.6.0%2Bcu126.zip
 unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d /path/to/install
@@ -72,7 +75,7 @@ tar -xzf openvino_2025(....) -C /path/to/install
 git clone https://github.com/MaximilianKaindl/FFmpeg.git
 cd FFmpeg
 
-# take a look at what parts you need
+# take a look at what parts you need, use --use_cuda if downloaded Libtorch with cuda
 ./setup.sh --help
 
 # Important - Set installations paths of libtorch, tokenizers-cpp and openvino
