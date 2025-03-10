@@ -104,7 +104,49 @@ make -j16
 
 ### 8. Install Python env
 
-choose conda or python venv and install environment.yml or requirements.txt
+#### Python Environment Setup
+
+This project can be set up using either Conda or Python's built-in venv module. Choose the method that best fits your workflow.
+
+##### Option 1: Using Conda
+
+###### Installation Steps
+
+1. Install [Miniconda](https://www.anaconda.com/docs/getting-started/anaconda/install) or [Anaconda](https://www.anaconda.com/docs/getting-started/anaconda/install) if you don't have it already.
+
+2. Create and activate a new conda environment:
+
+```bash
+# Create environment from environment.yml file
+conda env create -f environment.yml
+
+# Activate the environment
+conda activate myproject
+
+# Verify installation
+python -c "import sys; print(sys.executable); import [main_package]; print([main_package].__version__)"
+```
+
+##### Option 2: Using Python venv
+
+###### Installation Steps
+
+1. Create and activate a virtual environment:
+
+```bash
+# Create a virtual environment
+python -m venv .venv
+
+# Activate the environment
+source .venv/bin/activate
+```
+
+2. Install dependencies:
+
+```bash
+# Install from requirements.txt
+pip install -r requirements.txt
+```
 
 ## ⚙️ Model Conversion
 
