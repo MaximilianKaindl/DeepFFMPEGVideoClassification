@@ -15,7 +15,7 @@ This Project demonstrates a simplified interface for interaction with the new FF
 
 ## 📋 Requirements
 
-- Python 3.10+
+- Python 3.10.16
 - FFmpeg (Submodule included, clone recursively)
 - LibTorch C++ libraries (Download as described below)
 - tokenizers-cpp (Submodule included, clone recursively)
