@@ -25,7 +25,7 @@ A simplified interface for using FFmpeg's DNN classification filter with CLIP an
   - [Visual Analysis with CLIP](#visual-analysis-with-clip)
   - [Audio Analysis with CLAP](#audio-analysis-with-clap)
   - [CLIP and CLAP Analysis](#clip-and-clap-analysis)
-  - [Full Pipeline with Detection](#full-pipeline-with-detection)
+  - [Pipeline with Detection](#pipeline-with-detection)
 - [Output Format](#output-format)
 - [Project Structure](#project-structure)
 - [Troubleshooting](#troubleshooting)
@@ -228,7 +228,7 @@ python run_classification.py \
   --clap-categories resources/labels/categories_clap.txt \
 ```
 
-### Full Pipeline with Detection
+### Pipeline with Detection
 
 Only works when FFmpeg is built with OpenVINO support:
 
