@@ -5,89 +5,121 @@
 ![Python Version](https://img.shields.io/badge/Python-3.10-blue)
 ![FFmpeg](https://img.shields.io/badge/FFmpeg-Latest-red)
 
-This Project demonstrates a simplified interface for interaction with the new FFmpeg DNN classification filter that uses CLIP and CLAP. This implementation currently is only availiable on my Fork.
+A simplified interface for using FFmpeg's DNN classification filter with CLIP and CLAP models. This implementation is currently available only on the author's fork, which is included as a submodule.
 
-## 🔍 Features
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+  - [1. Clone Repository](#1-clone-repository)
+  - [2. Install Optional CUDA Dependencies](#2-install-optional-cuda-dependencies)
+  - [3. Build Tokenizers](#3-build-tokenizers)
+  - [4. Install LibTorch](#4-install-libtorch)
+  - [5. Install OpenVINO (Optional)](#5-install-openvino-optional)
+  - [6. Configure and Build FFmpeg](#6-configure-and-build-ffmpeg)
+  - [7. Set Environment Variables (Optional)](#7-set-environment-variables-optional)
+  - [8. Set Up Python Environment](#8-set-up-python-environment)
+- [Model Conversion](#model-conversion)
+- [Usage](#usage)
+  - [Visual Analysis with CLIP](#visual-analysis-with-clip)
+  - [Audio Analysis with CLAP](#audio-analysis-with-clap)
+  - [Full Pipeline with Detection](#full-pipeline-with-detection)
+- [Output Format](#output-format)
+- [Project Structure](#project-structure)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [References](#references)
+- [Acknowledgements](#acknowledgements)
 
-- **Multi-modal Analysis**: CLIP visual understanding, and CLAP audio classification for comprehensive media analysis. (Sample Detection Model and Command Builder also included)
+## Overview
+
+DeepFFmpeg Video Classification provides a framework for advanced media content analysis using deep neural networks. It integrates CLIP (Contrastive Language-Image Pre-training) for visual understanding and CLAP (Contrastive Language-Audio Pre-training) for audio classification into FFmpeg's filtering system.
+
+## Features
+
+- **Multi-modal Analysis**: Combine CLIP visual understanding and CLAP audio classification for comprehensive media analysis
 - **GPU Acceleration**: Leverage CUDA for faster processing
+- **Command Builder**: Simplified interface for building complex FFmpeg commands
 - **Model Conversion**: Automated tools to convert and test CLIP and CLAP models
 
-## 📋 Requirements
+## Requirements
 
 - Python 3.10.16
 - FFmpeg (Submodule included, clone recursively)
-- LibTorch C++ libraries (Download as described below)
-- tokenizers-cpp (Submodule included, clone recursively)
+- LibTorch C++ libraries
+- tokenizers-cpp library (Submodule included)
 - OpenVINO Toolkit (optional, for detection only)
 - GPU support (optional but recommended)
 
-## 🚀 Installation
+## Installation
 
-### 1. Clone the repository
+### 1. Clone Repository
 
 ```bash
 git clone --recurse-submodules https://github.com/MaximilianKaindl/DeepFFMPEGVideoClassification.git
 cd DeepFFMPEGVideoClassification
 ```
 
-### 2. Install Cuda FFmpeg dependencies (Optional, not needed for basic CLIP/CLAP or Detection)
+### 2. Install Optional CUDA Dependencies
 
 ```bash
-# needed for CUDA accel
-sudo apt install nvida-cuda-toolkit
+# Only needed for CUDA acceleration
+sudo apt install nvidia-cuda-toolkit
 ```
 
-### 3. Build tokenizers-cpp
+### 3. Build Tokenizers
 
 ```bash
-# Clone the repository with submodules if not already existing
+# Build tokenizers-cpp if not already existing
 git clone --recurse-submodules https://github.com/mlc-ai/tokenizers-cpp.git
 cd tokenizers-cpp/example/
 ./build_and_run.sh
 ```
 
-### 4. Download and extract LibTorch
+### 4. Install LibTorch
+
+Download and extract LibTorch C++ libraries from the [PyTorch website](https://pytorch.org/get-started/locally/):
 
 ```bash
-# Download and extract LibTorch (C++ libraries) from https://pytorch.org/get-started/locally/
+# CPU version (Linux)
+wget https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.6.0%2Bcpu.zip
+unzip libtorch-win-shared-with-deps-2.6.0+cpu.zip -d /path/to/install
 
-# sample installation Linux Libtorch CPU
-https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.6.0%2Bcpu.zip
-
-# sample installation Linux Libtorch CUDA 12.6
+# CUDA 12.6 version (Linux)
 wget https://download.pytorch.org/libtorch/cu126/libtorch-cxx11-abi-shared-with-deps-2.6.0%2Bcu126.zip
 unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d /path/to/install
 ```
 
-### 5. (Optional) Download OpenVINO Toolkit
+### 5. Install OpenVINO (Optional)
+
+Only required for object detection functionality:
 
 ```bash
 # Download OpenVINO Toolkit
-https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux     # choose the appropriate version
-tar -xzf openvino_2025(....) -C /path/to/install
+wget https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux/openvino_2025.0.0.tgz
+tar -xzf openvino_2025.0.0.tgz -C /path/to/install
 ```
 
-### 6. Configure and build FFmpeg
+### 6. Configure and Build FFmpeg
 
 ```bash
 # Clone the FFmpeg fork
 git clone https://github.com/MaximilianKaindl/FFmpeg.git
 cd FFmpeg
 
-# take a look at what parts you need, use --cuda if downloaded Libtorch with cuda
+# View available options
 ./setup.sh --help
 
-# Important - Set installations paths of libtorch, tokenizers-cpp and openvino
-# Lines 48-50 in the script
-# default setting is
+# Important: Edit setup.sh to set installation paths (lines 48-50)
+# Default paths are:
 # ./libtorch
 # ./tokenizers-cpp
 # /opt/intel/openvino
 
-# Set up environment
-# if source makes the Terminal crash, execute without source and look at the error
-source ./setup.sh   # starts FFmpeg configure
+# Set up environment and configure FFmpeg
+source ./setup.sh
 
 # Clean previous builds
 make clean
@@ -96,26 +128,20 @@ make clean
 make -j$(nproc)
 ```
 
-### 7. Set bashrc (optional)
+### 7. Set Environment Variables (Optional)
+
+To persist environment variables across terminal sessions:
 
 ```bash
-#env variables are only saved in current terminal so consider adding the env variables to ~/.bashrc
 ./setup.sh --print-bashrc
+# Add the printed variables to your ~/.bashrc file
 ```
 
-### 8. Install Python env
+### 8. Set Up Python Environment
 
-#### Python Environment Setup
+Choose one of the following methods:
 
-This project can be set up using either Conda or Python's built-in venv module. Choose the method that best fits your workflow.
-
-##### Option 1: Using Conda
-
-###### Installation Steps
-
-1. Install [Miniconda](https://www.anaconda.com/docs/getting-started/anaconda/install) or [Anaconda](https://www.anaconda.com/docs/getting-started/anaconda/install) if you don't have it already.
-
-2. Create and activate a new conda environment:
+#### Using Conda
 
 ```bash
 # Create environment from environment.yml file
@@ -125,11 +151,7 @@ conda env create -f environment.yml
 conda activate deepffmpegvideoclassification
 ```
 
-##### Option 2: Using Python venv
-
-###### Installation Steps
-
-1. Create and activate a virtual environment:
+#### Using Python venv
 
 ```bash
 # Create a virtual environment
@@ -137,17 +159,14 @@ python -m venv .venv
 
 # Activate the environment
 source .venv/bin/activate
-```
 
-2. Install dependencies:
-
-```bash
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-## ⚙️ Model Conversion
+## Model Conversion
 
-The project includes a model conversion tool (`run_conversion.py`) that handles downloading, converting, and testing CLIP and CLAP models:
+The project includes a model conversion tool for downloading, converting, and testing CLIP and CLAP models:
 
 ```bash
 # Convert both CLIP and CLAP models
@@ -162,43 +181,45 @@ python run_conversion.py --skip-clip
 # Use GPU acceleration during conversion
 python run_conversion.py --use-cuda
 
-# Usage Prompt
+# View all options
 python run_conversion.py --usage
 ```
 
-## 🔧 Usage
+## Usage
 
-### Running a basic visual analysis with CLIP
+### Visual Analysis with CLIP
 
-If Model testing was done after conversion, a models_config.json gets created in /models. 
-If not specified in the arguments, those models and tokenizers will be default.
+After conversion, a `models_config.json` file is created in the `/models` directory with default model paths.
 
 ```bash
+# Basic image classification
 python run_classification.py \
   --input resources/images/cat.jpg \
   --clip-labels resources/labels/labels_clip_animal.txt
 
-# Hint: default temperature is high, so results are not that decisive 
-
+# Video scene analysis
 python run_classification.py \
   --input resources/video/example.mp4 \
   --scene-threshold 0.4 \
   --clip-categories resources/labels/categories_clip.txt 
 
-# Usage Prompt
+# View all options
 python run_classification.py --usage
 ```
 
-### Running audio analysis with CLAP
+### Audio Analysis with CLAP
 
 ```bash
+# Audio classification
 python run_classification.py \
   --input resources/audio/blues.mp3 \
   --clap-labels resources/labels/labels_clap_music.txt 
 ```
 
-### Complete pipeline with detection and CLIP
-only works when FFMPEG is built with Openvino
+### Full Pipeline with Detection
+
+Only works when FFmpeg is built with OpenVINO support:
+
 ```bash
 python run_classification.py \
   --input resources/video/sample.mp4 \
@@ -211,9 +232,9 @@ python run_classification.py \
   --clip-labels resources/labels/labels_clip_person.txt 
 ```
 
-## 📊 Output Format
+## Output Format
 
-The analysis results are saved in a structured csv format:
+Analysis results are saved in a structured CSV format:
 
 ```
 stream_id,label,avg_probability,count
@@ -225,7 +246,7 @@ stream_id,label,avg_probability,count
 0,Non-Narrative Media,0.3423,1
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 deepffmpeg/
@@ -248,17 +269,24 @@ deepffmpeg/
 ├── run_classification.py        # Main script for running analysis
 ```
 
-## ⚠️ Known Issues and Troubleshooting
+## Troubleshooting
 
-## 🤝 Contributing
+If you encounter issues:
+
+1. Ensure all dependencies are properly installed
+2. Check environment variables are correctly set
+3. For CUDA issues, verify NVIDIA drivers and CUDA toolkit are compatible
+4. For model conversion problems, check Python dependencies
+
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 📚 References
+## References
 
 - [CLIP: Connecting Text and Images](https://openai.com/research/clip)
 - [CLAP: Learning Audio Concepts from Natural Language Supervision](https://github.com/microsoft/CLAP)
@@ -266,11 +294,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [FFmpeg Documentation](https://ffmpeg.org/documentation.html)
 - [OpenVINO Toolkit](https://docs.openvino.ai/)
 
-> **Note:** Some of these references may be missing or have moved since this documentation was created. Please check for the most up-to-date sources if links are broken.
-
-## 🙏 Acknowledgements
+## Acknowledgements
 
 - The OpenAI CLIP team for their groundbreaking work
 - Microsoft Research for the CLAP model
-- The FFmpeg community for their continuous development of the platform
+- The FFmpeg community for their continuous development
 - The PyTorch team for LibTorch
+- The mlc-ai Team for their cross-platform C++ tokenizer binding library
