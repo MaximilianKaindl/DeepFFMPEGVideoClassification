@@ -43,7 +43,7 @@ class FFmpegCommandBuilder:
         missing_vars = [var for var, value in self.env_vars.items() if not value]
         
         if missing_vars:
-            print("Warning: Setup environment variables from set_vars.sh. FFMPEG is configured to run with these variables. FFMPEG Build may fail if these variables are not set.")
+            print("Warning: Some Environment variables are missing. \n Ignore this message if you sourced the setup file and use the same terminal. \n Setup environment variables with setup.sh in /FFmpeg. FFMPEG is configured to run with these variables. FFMPEG Build may fail if these variables are not set.")
 
     def check_dependencies(self):
         """Check if necessary tools and libraries are installed"""
