@@ -174,33 +174,33 @@ If Model testing was done after conversion, a models_config.json gets created in
 If not specified in the arguments, those models and tokenizers will be default.
 
 ```bash
-python run_ffmpeg.py \
+python run_classification.py \
   --input resources/images/cat.jpg \
   --clip-labels resources/labels/labels_clip_animal.txt
 
 # Hint: default temperature is high, so results are not that decisive 
 
-python run_ffmpeg.py \
+python run_classification.py \
   --input resources/video/example.mp4 \
   --scene-threshold 0.4 \
-  --clip-categories resources/labels/categories_clip.txt \
+  --clip-categories resources/labels/categories_clip.txt 
 
 # Usage Prompt
-python run_ffmpeg.py --usage
+python run_classification.py --usage
 ```
 
 ### Running audio analysis with CLAP
 
 ```bash
-python run_ffmpeg.py \
+python run_classification.py \
   --input resources/audio/blues.mp3 \
-  --clap-labels resources/labels/labels_clap_music.txt \
+  --clap-labels resources/labels/labels_clap_music.txt 
 ```
 
 ### Complete pipeline with detection and CLIP
 only works when FFMPEG is built with Openvino
 ```bash
-python run_ffmpeg.py \
+python run_classification.py \
   --input resources/video/sample.mp4 \
   --scene-threshold 0.4 \
   --confidence 0.1 \
@@ -208,7 +208,7 @@ python run_ffmpeg.py \
   --detect-labels resources/labels/coco_80cl.txt \
   --anchors "81&82&135&169&344&319" \
   --nb-classes 80 \
-  --clip-labels resources/labels/labels_clip_person.txt \
+  --clip-labels resources/labels/labels_clip_person.txt 
 ```
 
 ## 📊 Output Format
@@ -245,7 +245,7 @@ deepffmpeg/
 ├── environment.yml              # Conda environment file
 ├── requirements.txt             # Pip requirements file
 ├── run_conversion.py            # Model conversion script
-├── run_ffmpeg.py                # Main script for running analysis
+├── run_classification.py        # Main script for running analysis
 ```
 
 ## ⚠️ Known Issues and Troubleshooting
