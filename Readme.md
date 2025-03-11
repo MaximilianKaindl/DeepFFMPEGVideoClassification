@@ -230,7 +230,9 @@ python run_classification.py \
 
 ### Pipeline with Detection
 
-Only works when FFmpeg is built with OpenVINO support:
+Only works when FFmpeg is built with OpenVINO support.
+
+For YOLO model download and conversion pleaser refer to the converters/convert_yolo.sh.
 
 ```bash
 python run_classification.py \
