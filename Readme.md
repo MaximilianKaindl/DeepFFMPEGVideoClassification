@@ -24,6 +24,7 @@ A simplified interface for using FFmpeg's DNN classification filter with CLIP an
 - [Usage](#usage)
   - [Visual Analysis with CLIP](#visual-analysis-with-clip)
   - [Audio Analysis with CLAP](#audio-analysis-with-clap)
+  - [CLIP and CLAP Analysis](#clip-and-clap-analysis)
   - [Full Pipeline with Detection](#full-pipeline-with-detection)
 - [Output Format](#output-format)
 - [Project Structure](#project-structure)
