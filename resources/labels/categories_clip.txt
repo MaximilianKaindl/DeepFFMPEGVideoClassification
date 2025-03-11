@@ -1,109 +1,109 @@
 [RecordingSystem]
-(Home Recording) 
-Low-resolution image with visible noise and uneven lighting
-Casual handheld framing with slightly tilted composition
-Soft focus and minor motion blur due to shaky capture
-Overexposed or underexposed areas due to auto camera settings
-Close-up shot with inconsistent sharpness and grainy texture
-Slightly off-center composition with amateur framing
-Everyday setting with minimal visual refinement
-Unbalanced color tones due to automatic white balance issues
+(Home Recording)
+Blurry or grainy picture quality
+Shaky or crooked camera angles
+Parts of the image too bright or too dark
+Unsteady focus that comes and goes
+Camera movements that feel unplanned
+Basic colors that may look off or unnatural
+Background noise or distractions visible
+Everyday settings without special setup
 (Professional Recording)
-High-resolution, well-balanced image with precise focus
-Smooth composition with structured visual elements
-Refined color grading for a polished appearance
-Controlled depth of field to emphasize subjects
-Dynamic but stable shot with excellent clarity
-Optimized lighting setup creating a cinematic look
-Professional post-processing for a sharp and clean aesthetic
-High-quality textures and fine detail captured accurately
+Clear, sharp image with good detail
+Steady, well-framed camera work
+Even, flattering lighting on subjects
+Consistent focus throughout the video
+Smooth, controlled camera movements
+Rich, natural-looking colors
+Clean backgrounds with minimal distractions
+Polished look with signs of editing
 [ContentType]
 (Narrative Film)
-Stylized composition with dramatic lighting and framing
-Structured storytelling visuals with character-focused depth
-Intentional scene design supporting emotional engagement
-Cinematic color grading with artistic visual language
-Defined character expressions and interactions within a setting
-Clear narrative-driven elements guiding the viewer’s focus
-Shot variety including close-ups, medium, and wide angles
-Designed environments enhancing the story’s atmosphere
-Dynamic but coherent visual storytelling elements
-Emphasis on emotions or tension-building visuals
+Shots that tell a story with specific meaning
+Camera focus guiding where to look
+Sets and locations chosen to fit the story
+Colors used to create a certain mood
+Actors performing with planned movements
+Scenes building up to important moments
+Different camera distances showing emotions
+Each shot connecting to the next one
+Settings that help viewers feel something
+Focus on creating emotional reactions
 (Documentary)
-Real-world subjects captured with authenticity
-Neutral framing focusing on factual representation
-Natural color grading without heavy stylistic changes
-Observation-based composition emphasizing realism
-Use of archival or candid footage as part of storytelling
-Detail-focused imagery conveying information over aesthetics
-Human subjects presented with contextual surroundings
-Journalistic approach with clear, unobstructed viewpoints
-Minimal staging, capturing events as they naturally unfold
-Visual focus on evidence, facts, and real-world elements
+Real people and places without actors
+Simple camera work showing things as they are
+Natural colors without special effects
+Filming that captures real events happening
+Use of old footage or photos for background
+Focus on facts rather than pretty images
+People shown in their natural surroundings
+Direct, honest viewpoints without tricks
+Minimal staging, showing real situations
+Visual focus on real-world information
 (Non-Narrative Media)
-Informational visuals structured for direct communication
-Simplified framing with clear subjects for quick understanding
-Graphics or text overlays often used for context
-Energetic pacing and varied compositions for engagement
-Real-life interactions captured in unscripted moments
-Stylized but direct visuals emphasizing clarity over aesthetics
-Common use of on-screen hosts, interviews, or reports
-Frequent incorporation of motion graphics or digital elements
-Clear differentiation of foreground subjects
-Emphasis on accessibility and broad audience reach
+Clear visuals meant to inform quickly
+Simple framing that's easy to understand
+Text or graphics added to explain things
+Fast-paced with changing camera angles
+Unscripted moments with real reactions
+Direct visual style focused on clarity
+Often showing hosts, interviews, or reports
+Uses graphics or digital elements
+Clear focus on main subjects
+Made to be understood by many viewers
 [Genre]
 (Drama)
-Emotional depth conveyed through lighting and framing
-Subtle expressions and body language
-Warm or muted color palettes enhancing realism
-Slower-paced compositions with thoughtful shot selection
-Use of contrast to highlight personal struggles or intensity
-Narrative focus on character-driven moments over action
-Soft but deliberate lighting emphasizing mood
-Layered depth in visuals creating a sense of introspection
-Close framing enhancing intimacy and personal connections
-Realistic environments supporting character-driven storytelling
+Lighting that creates emotional mood
+Close-ups showing feelings on faces
+Warm or soft colors making things feel real
+Slow, thoughtful camera work
+Use of shadows to show inner struggles
+Focus on people's stories rather than action
+Gentle lighting highlighting emotions
+Depth in scenes creating thoughtful feeling
+Close shots making viewers feel connected
+Real-looking settings matching characters' lives
 (Action)
-Fast-paced visuals with strong motion emphasis
-Dynamic camera angles enhancing intensity
-High contrast and vivid colors to amplify energy
-Intentional motion blur capturing rapid movement
-Tight framing on subjects for quick impact delivery
-Composition emphasizing scale and movement
-High-adrenaline visual elements such as speed, tension
-Sharp lighting contrasts creating dramatic action effects
-Foreground and background elements interacting dynamically
-Focused energy through choreographed motion and framing
+Fast camera work following quick movements
+Exciting camera angles adding energy
+Bright, strong colors that pop on screen
+Motion blur showing speed and movement
+Close-up shots creating immediate impact
+Camera work showing scale and movement
+High-energy visuals with tension and speed
+Strong lighting creating dramatic effects
+Objects moving quickly in foreground and background
+Choreographed movement with planned camera work
 (Comedy)
-Bright, vibrant visuals supporting lighthearted tones
-Exaggerated expressions and body language for comedic effect
-Simplified framing highlighting humor-focused moments
-Playful color schemes enhancing energetic mood
-Fast-cut or unexpected compositions reinforcing comedic timing
-Visual contrast creating irony or absurdity
-Clear focus on reactions and humorous misunderstandings
-Dynamic positioning of subjects in amusing or awkward ways
-Warm, inviting lighting emphasizing a cheerful atmosphere
-Framing that subtly sets up visual punchlines
+Bright, cheerful visuals with energy
+Exaggerated facial expressions for laughs
+Simple framing highlighting funny moments
+Playful, upbeat colors adding to mood
+Quick cuts or unexpected shots for humor
+Visual contrasts creating funny situations
+Focus on reactions and misunderstandings
+Positioning people in funny or awkward ways
+Warm, bright lighting for cheerful feeling
+Camera work that sets up visual jokes
 (Horror/Thriller)
-Low-key lighting and heavy shadow use
-High contrast with eerie or muted color palettes
-Unsettling framing techniques creating discomfort
-Composition emphasizing isolation or vulnerability
-Distorted or unnatural perspectives increasing tension
-Sudden contrasts in brightness and darkness for impact
-Suspenseful use of negative space in visuals
-Ambiguous elements adding a sense of unease
-Sharp or exaggerated shadows playing with depth
-Slow, creeping compositions drawing out tension
+Dark scenes with heavy shadows
+High contrast with eerie color choices
+Uncomfortable camera angles creating unease
+Framing that makes people feel isolated
+Weird or unnatural perspectives creating tension
+Sudden changes between dark and light for shock
+Empty space in frame creating suspense
+Unclear elements adding mystery and fear
+Sharp or strange shadows creating depth
+Slow, creeping camera movements building tension
 (Sci-Fi/Fantasy)
-Futuristic or otherworldly design elements
-Imaginative color palettes defining new worlds
-High-tech or magical visuals creating a sense of wonder
-Layered depth creating immersive environments
-Dynamic lighting effects enhancing speculative themes
-Contrasts between organic and artificial elements
-Creative use of architecture, landscapes, and surreal settings
-Enhanced textures and materials for advanced realism
-Visionary compositions exploring alternative realities
-distinguishing futuristic or mystical aesthetics
+Futuristic or magical visual elements
+Unusual color schemes creating new worlds
+High-tech or magical visuals creating wonder
+Layered scenes creating immersive places
+Special lighting effects enhancing fantasy
+Contrast between natural and artificial elements
+Creative use of unusual settings or landscapes
+Detailed textures making fantasy seem real
+Camera work exploring imaginary worlds
+Distinct look setting apart fantasy elements
