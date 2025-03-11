@@ -85,7 +85,8 @@ cd FFmpeg
 # ./tokenizers-cpp
 # /opt/intel/openvino
 
-# Set up environment 
+# Set up environment
+# if source makes the Terminal crash, execute without source and look at the error
 source ./setup.sh   # starts FFmpeg configure
 
 # Clean previous builds
