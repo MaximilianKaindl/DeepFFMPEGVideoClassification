@@ -98,6 +98,18 @@ class FFmpegCommandBuilder:
         clip_filter = f"dnn_classify=dnn_backend=torch:model={args.clip_model}"
         clip_filter += f":device={args.device}:confidence={conf}"
         
+        # Add temperature and logit_scale if specified
+        # First try model-specific parameters, then fall back to common parameters
+        if args.clip_temperature is not None:
+            clip_filter += f":temperature={args.clip_temperature}"
+        elif args.temperature is not None:
+            clip_filter += f":temperature={args.temperature}"
+        
+        if args.clip_logit_scale is not None:
+            clip_filter += f":logit_scale={args.clip_logit_scale}"
+        elif args.logit_scale is not None:
+            clip_filter += f":logit_scale={args.logit_scale}"
+        
         if tokenizer:
             clip_filter += f":tokenizer={tokenizer}"
         
@@ -144,6 +156,18 @@ class FFmpegCommandBuilder:
         
         # Build the filter with correct device
         clap_filter = f"dnn_classify=dnn_backend=torch:is_audio=1:device={clap_device}:model={args.clap_model}"
+        
+        # Add temperature and logit_scale if specified
+        # First try model-specific parameters, then fall back to common parameters
+        if args.clap_temperature is not None:
+            clap_filter += f":temperature={args.clap_temperature}"
+        elif args.temperature is not None:
+            clap_filter += f":temperature={args.temperature}"
+        
+        if args.clap_logit_scale is not None:
+            clap_filter += f":logit_scale={args.clap_logit_scale}"
+        elif args.logit_scale is not None:
+            clap_filter += f":logit_scale={args.logit_scale}"
         
         if tokenizer:
             clap_filter += f":tokenizer={tokenizer}"
@@ -302,11 +326,18 @@ def parse_arguments():
     
     # Confidence threshold
     parser.add_argument('--confidence', type=float, default=0.3,
-                        help='Confidence threshold for detections and classifications (default: 0.05)')
+                        help='Confidence threshold for detections and classifications (default: 0.3)')
     
     # Device selection
     parser.add_argument('--device', default='cuda', choices=['cuda', 'cpu'],
                         help='Device to use for CLIP and CLAP models (default: cuda)')
+    
+    # Common model parameters group (kept for backward compatibility)
+    model_params_group = parser.add_argument_group('Common Model Parameters')
+    model_params_group.add_argument('--temperature', type=float, 
+                                   help='Softmax temperature for both CLIP and CLAP (higher = smoother probabilities)')
+    model_params_group.add_argument('--logit-scale', type=float, 
+                                   help='Logit scale for both CLIP and CLAP similarity calculation')
     
     # YOLO detection options
     detection_group = parser.add_argument_group('YOLO Detection Options')
@@ -335,6 +366,10 @@ def parse_arguments():
                            help='Path to tokenizer file for CLIP')
     clip_group.add_argument('--target', 
                            help='Target object to classify')
+    clip_group.add_argument('--clip-temperature', type=float,
+                           help='Softmax temperature for CLIP (higher = smoother probabilities)')
+    clip_group.add_argument('--clip-logit-scale', type=float,
+                           help='Logit scale for CLIP similarity calculation')
     
     # CLAP options
     clap_group = parser.add_argument_group('CLAP Audio Classification Options')
@@ -350,6 +385,10 @@ def parse_arguments():
     
     clap_group.add_argument('--audio-tokenizer', 
                            help='Path to tokenizer file for CLAP')
+    clap_group.add_argument('--clap-temperature', type=float,
+                           help='Softmax temperature for CLAP (higher = smoother probabilities)')
+    clap_group.add_argument('--clap-logit-scale', type=float,
+                           help='Logit scale for CLAP similarity calculation')
     
     return parser.parse_args()
 
