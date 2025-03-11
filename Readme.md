@@ -232,7 +232,7 @@ python run_classification.py \
 
 Only works when FFmpeg is built with OpenVINO support.
 
-For YOLO model download and conversion pleaser refer to the converters/convert_yolo.sh.
+For YOLO model download and conversion pleaser refer to the `converters/convert_yolo.sh`.
 
 ```bash
 python run_classification.py \
