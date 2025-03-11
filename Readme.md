@@ -93,7 +93,7 @@ source ./setup.sh   # starts FFmpeg configure
 make clean
 
 # Build FFmpeg
-make -j16
+make -j$(nproc)
 ```
 
 ### 7. Set bashrc (optional)
