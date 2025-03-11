@@ -216,6 +216,17 @@ python run_classification.py \
   --clap-labels resources/labels/labels_clap_music.txt 
 ```
 
+### CLIP and CLAP Analysis
+
+```bash
+python run_classification.py \
+  --scene-threshold 0.2 \
+  --input resources/video/example.mp4 \
+  --temperature 0.1 \ 
+  --clip-categories resources/labels/categories_clip.txt \ 
+  --clap-categories resources/labels/categories_clap.txt \
+```
+
 ### Full Pipeline with Detection
 
 Only works when FFmpeg is built with OpenVINO support:
