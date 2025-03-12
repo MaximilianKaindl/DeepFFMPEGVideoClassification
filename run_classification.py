@@ -485,7 +485,7 @@ def main():
         response = input("\nDo you want to execute this command? (y/n): ")
     if response.lower() in ['y', 'yes']:
         try:
-            subprocess.run(cmd)
+            subprocess.run(cmd, capture_output=True, text=True)
         except Exception as e:
             print(f"Error executing command: {e}")
             sys.exit(1)
