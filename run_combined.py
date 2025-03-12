@@ -787,9 +787,8 @@ def main():
             
             logging.info(f"Combined analysis results saved to: {json_path}")
         
-        print(f"\nAnalysis completed successfully!")
-        print(f"JSON results: {json_path}")
-        
+        logging.info(f"Analysis completed successfully!")
+        logging.info(f"JSON results: {json_path}")
     except Exception as e:
         logging.exception(f"Error during analysis: {e}")
         sys.exit(1)
