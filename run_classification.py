@@ -376,7 +376,8 @@ def parse_arguments():
     parser.add_argument('--input', required=True, help='Input video/audio file')
     parser.add_argument('--output-stats', help='Output statistics file')
     parser.add_argument('--verbose', action='store_true', help='Enable verbose output')
-    
+    parser.add_argument('--skip-confirmation', action='store_true', help='Enable verbose output')
+
     # Mode selection
     parser.add_argument('--visualization', action='store_true', 
                         help='Use FFplay for visualization instead of FFmpeg for analysis')
@@ -478,7 +479,10 @@ def main():
     print(" ".join(cmd))
     
     # Ask user if they want to execute the command
-    response = input("\nDo you want to execute this command? (y/n): ")
+    if args.skip_confirmation:
+        response = 'y'
+    else:
+        response = input("\nDo you want to execute this command? (y/n): ")
     if response.lower() in ['y', 'yes']:
         try:
             subprocess.run(cmd)
