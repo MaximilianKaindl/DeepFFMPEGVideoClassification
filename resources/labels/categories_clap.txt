@@ -1,134 +1,134 @@
-[RecordingSystem]
-(Home Recording) 
-Background noise with inconsistent levels
-Room echo due to untreated recording space
-Microphone plosives and breath sounds
-Audible digital clipping from improper gain
-Limited frequency response mainly mid-range
-Single track with minimal separation
-Consumer-grade equipment artifacts
-Minimal post-processing with raw sound
-Uneven dynamics with occasional peaking
-Muffled low end and harsh high frequencies
+[RecordingQuality]
+(BasicRecording)
+Background noise with inconsistent levels.
+Room echo due to untreated recording space.
+Microphone plosives and breath sounds.
+Audible digital clipping from improper gain.
+Limited frequency response mainly mid-range.
+Single track with minimal separation.
+Consumer-grade equipment artifacts.
+Minimal post-processing with raw sound.
+Uneven dynamics with occasional peaking.
+Muffled low end and harsh high frequencies.
 
-(Professional Recording)
-Full-spectrum frequency response with rich tonality
-Precise dynamic control with appropriate compression
-Clean signal path with minimal noise floor
-Multi-track recording with proper separation
-Balanced equalization across frequency bands
-Controlled acoustics with room treatment
-Professional post-processing with polish
-Consistent levels with proper headroom
-High-resolution capture with excellent detail
-Strategic mic placement for optimal sound
+(ProfessionalRecording)
+Full-spectrum frequency response with rich tonality.
+Precise dynamic control with appropriate compression.
+Clean signal path with minimal noise floor.
+Multi-track recording with proper separation.
+Balanced equalization across frequency bands.
+Controlled acoustics with room treatment.
+Professional post-processing with polish.
+Consistent levels with proper headroom.
+High-resolution capture with excellent detail.
+Strategic mic placement for optimal sound.
 
-(Animation)
-Stylized effects designed for cartoon visuals
-Exaggerated audio beyond physical reality
-Synchronized foley crafted for animated movements
-Voice acting with heightened expressiveness
-Character-specific sound signatures
-Fantastical acoustic spaces matching art style
-Sound elements defying natural physics
-Frame-accurate audio cues for visual elements
-Blended synthetic and organic sounds
-Emotional amplification serving visual storytelling
+(AnimatedAudio)
+Stylized effects designed for cartoon visuals.
+Exaggerated audio beyond physical reality.
+Synchronized foley crafted for animated movements.
+Voice acting with heightened expressiveness.
+Character-specific sound signatures.
+Fantastical acoustic spaces matching art style.
+Sound elements defying natural physics.
+Frame-accurate audio cues for visual elements.
+Blended synthetic and organic sounds.
+Emotional amplification serving visual storytelling.
 
-[ContentType]
-(Narrative Film)
-Layered design with foreground and background elements
-Detailed foley work integrated with dialogue
-Atmospheric sound beds establishing environment
-Directional audio cues supporting narrative flow
-Strategic silence for dramatic effect
-Dialogue clarity with natural room tone
-Music enhancing emotional context
-Sound perspective shifts matching visuals
-Transitional audio elements between scenes
-Sound symbolism reinforcing story themes
+[ContentPurpose]
+(StorytellingAudio)
+Layered design with foreground and background elements.
+Detailed foley work integrated with dialogue.
+Atmospheric sound beds establishing environment.
+Directional audio cues supporting narrative flow.
+Strategic silence for dramatic effect.
+Dialogue clarity with natural room tone.
+Music enhancing emotional context.
+Sound perspective shifts matching visuals.
+Transitional audio elements between scenes.
+Sound symbolism reinforcing story themes.
 
-(Documentary)
-Authentic location audio capturing environment
-Clear interviews with minimal processing
-Natural ambient sounds preserving realism
-Archival audio with historical context
-Field recordings with geographical specificity
-Minimal music as transitional elements
-Prioritized speech intelligibility for clarity
-Unobtrusive sound supporting factual presentation
-Balanced mix of narration and environment
-Ambient shifts marking location changes
+(FactualAudio)
+Authentic location audio capturing environment.
+Clear interviews with minimal processing.
+Natural ambient sounds preserving realism.
+Archival audio with historical context.
+Field recordings with geographical specificity.
+Minimal music as transitional elements.
+Prioritized speech intelligibility for clarity.
+Unobtrusive sound supporting factual presentation.
+Balanced mix of narration and environment.
+Ambient shifts marking location changes.
 
-(Non-Narrative Media)
-Voiceover clarity for information delivery
-Consistent audio branding and motifs
-Background music not competing with speech
-Sound effects emphasizing key points
-Clean interview audio with studio clarity
-Regular audio cues for segment transitions
-Balanced levels for multi-speaker discussions
-Optimized for various listening environments
-Clear audio hierarchy prioritizing information
-Accessible sound design for broad appeal
+(InformationalAudio)
+Voiceover clarity for information delivery.
+Consistent audio branding and motifs.
+Background music not competing with speech.
+Sound effects emphasizing key points.
+Clean interview audio with studio clarity.
+Regular audio cues for segment transitions.
+Balanced levels for multi-speaker discussions.
+Optimized for various listening environments.
+Clear audio hierarchy prioritizing information.
+Accessible sound design for broad appeal.
 
-[Genre]
-(Drama)
-Subtle emotional underscore with restrained dynamics
-Intimate dialogue with close-mic techniques
-Delicate sound design emphasizing character moments
-Naturalistic ambient beds creating space
-Strategic silence highlighting emotional tension
-Gradual dynamic builds supporting narrative
-Organic transitions between dialogue and score
-Acoustic instruments in soundtrack
-Sound perspective matching character viewpoint
-Layered environments creating realistic depth
+[AudioMood]
+(EmotionalAudio)
+Subtle emotional underscore with restrained dynamics.
+Intimate dialogue with close-mic techniques.
+Delicate sound design emphasizing character moments.
+Naturalistic ambient beds creating space.
+Strategic silence highlighting emotional tension.
+Gradual dynamic builds supporting narrative.
+Organic transitions between dialogue and score.
+Acoustic instruments in soundtrack.
+Sound perspective matching character viewpoint.
+Layered environments creating realistic depth.
 
-(Action)
-Impactful effects with extended dynamic range
-Heavy bass presence emphasizing intensity
-Fast-paced editing with quick transitions
-Heightened foley for physical interactions
-Dramatic musical stings and percussion
-Strategic use of subwoofer frequencies
-Multi-channel audio with spatial movement
-Quick dialogue with high intelligibility
-Exaggerated sound for dramatic effect
-Intensified ambient elements during sequences
+(IntenseAudio)
+Impactful effects with extended dynamic range.
+Heavy bass presence emphasizing intensity.
+Fast-paced editing with quick transitions.
+Heightened foley for physical interactions.
+Dramatic musical stings and percussion.
+Strategic use of subwoofer frequencies.
+Multi-channel audio with spatial movement.
+Quick dialogue with high intelligibility.
+Exaggerated sound for dramatic effect.
+Intensified ambient elements during sequences.
 
-(Comedy)
-Bright, punchy sound with quick transitions
-Exaggerated effects for comedic emphasis
-Upbeat tempo in music and sound pacing
-Quirky motifs establishing character themes
-Timing-focused edits supporting comic beats
-Contrasting elements creating humor
-Clean dialogue capturing verbal nuances
-Lighthearted sound beds establishing tone
-Sound effect "punctuation" highlighting jokes
-Musical stings accentuating punchlines
+(LightAudio)
+Bright, punchy sound with quick transitions.
+Exaggerated effects for comedic emphasis.
+Upbeat tempo in music and sound pacing.
+Quirky motifs establishing character themes.
+Timing-focused edits supporting comic beats.
+Contrasting elements creating humor.
+Clean dialogue capturing verbal nuances.
+Lighthearted sound beds establishing tone.
+Sound effect "punctuation" highlighting jokes.
+Musical stings accentuating punchlines.
 
-(Horror/Thriller)
-Low-frequency rumble creating tension
-Unsettling ambience with dissonant elements
-Strategic silence broken by startling sounds
-Distorted audio creating psychological discomfort
-Binaural effects creating spatial disorientation
-Subliminal sounds below conscious threshold
-Manipulated everyday sounds creating unease
-Whispered or barely audible vocal elements
-Discordant musical motifs with atonal qualities
-Slow building design with delayed resolution
+(EerieAudio)
+Low-frequency rumble creating tension.
+Unsettling ambience with dissonant elements.
+Strategic silence broken by startling sounds.
+Distorted audio creating psychological discomfort.
+Binaural effects creating spatial disorientation.
+Subliminal sounds below conscious threshold.
+Manipulated everyday sounds creating unease.
+Whispered or barely audible vocal elements.
+Discordant musical motifs with atonal qualities.
+Slow building design with delayed resolution.
 
-(Sci-Fi/Fantasy)
-Synthesized design creating otherworldly elements
-Processed vocal effects for non-human characters
-Futuristic interface and technology signatures
-Atmospheric pads establishing exotic environments
-Extended frequency range beyond reality
-Creative reverb suggesting alternate spaces
-Distinctive signatures for magical elements
-Complex layering creating immersive worlds
-Unique acoustics defining different realms
-Innovative design establishing new realities
+(FantasticalAudio)
+Synthesized design creating otherworldly elements.
+Processed vocal effects for non-human characters.
+Futuristic interface and technology signatures.
+Atmospheric pads establishing exotic environments.
+Extended frequency range beyond reality.
+Creative reverb suggesting alternate spaces.
+Distinctive signatures for magical elements.
+Complex layering creating immersive worlds.
+Unique acoustics defining different realms.
+Innovative design establishing new realities.

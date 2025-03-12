@@ -1,0 +1,134 @@
+[RecordingSystem]
+(Home Recording) 
+Low-res image with noise and uneven lighting.
+Casual handheld framing with tilted composition.
+Soft focus with minor motion blur.
+Dimly lit indoor setting with household clutter.
+Over/underexposed areas from auto camera settings.
+Close-up with inconsistent sharpness and grain.
+Off-center composition with amateur framing.
+Everyday setting with minimal refinement.
+Unbalanced color from white balance issues.
+Spontaneous capture without professional setup.
+
+(Animation)
+Constructed visuals without real-world limitations.
+Stylization defying natural physics and proportions.
+Consistent character appearance across all frames.
+Total lighting control without physical equipment.
+Impossible camera movements unconstrained by physics.
+Precise color control without environmental interference.
+Background and foreground created independently.
+Visual effects integrated directly into primary imagery.
+Frame-perfect timing control.
+Malleable environments beyond real-world constraints.
+
+(Professional Recording)
+High-res image with precise focus and balance.
+Even lighting with clear contrast and depth.
+Smooth composition with structured visual elements.
+Refined color grading for polished appearance.
+Controlled depth of field emphasizing subjects.
+Intentional framing with strong visual balance.
+Dynamic but stable shot with excellent clarity.
+Optimized lighting creating cinematic look.
+Professional post-processing for clean aesthetic.
+High-quality textures and fine detail.
+
+[ContentType]
+(Narrative Film)
+Stylized composition with dramatic lighting.
+Storytelling visuals with character focus.
+Scene design supporting emotional engagement.
+Cinematic color grading with artistic visual language.
+Defined character expressions and interactions.
+Narrative-driven elements guiding viewer focus.
+Varied shots including close-ups, medium, and wide angles.
+Designed environments enhancing story atmosphere.
+Dynamic but coherent visual storytelling.
+Emphasis on emotion-building visuals.
+
+(Documentary)
+Real-world subjects captured authentically.
+Neutral framing focusing on factual representation.
+Natural color without heavy stylistic changes.
+Observation-based composition emphasizing realism.
+Archival or candid footage in storytelling.
+Detail-focused imagery conveying information.
+Human subjects with contextual surroundings.
+Journalistic approach with clear viewpoints.
+Minimal staging, capturing events naturally.
+Focus on evidence and real-world elements.
+
+(Non-Narrative Media)
+Informational visuals for direct communication.
+Simple framing with clear subjects for quick understanding.
+Graphics or text overlays providing context.
+Energetic pacing and varied compositions.
+Real-life interactions in unscripted moments.
+Direct visuals emphasizing clarity over aesthetics.
+Common use of on-screen hosts or interviews.
+Frequent use of motion graphics.
+Clear distinction between foreground and background.
+Emphasis on accessibility for broad audiences.
+
+[Genre]
+(Drama)
+Emotional depth through lighting and framing.
+Subtle expressions defining character dynamics.
+Warm or muted color palettes enhancing realism.
+Thoughtful shot selection with slower pacing.
+Contrast highlighting personal struggles.
+Focus on character-driven moments over action.
+Soft but deliberate lighting emphasizing mood.
+Layered depth creating sense of introspection.
+Close framing enhancing intimacy.
+Realistic environments supporting character stories.
+
+(Action)
+Fast-paced visuals with strong motion emphasis.
+Dynamic camera angles enhancing intensity.
+High contrast and vivid colors amplifying energy.
+Motion blur capturing rapid movement.
+Tight framing on subjects for quick impact.
+Composition emphasizing scale and movement.
+High-adrenaline visuals showing speed and tension.
+Sharp lighting contrasts for dramatic effect.
+Dynamic interaction between foreground and background.
+Focused energy through choreographed motion.
+
+(Comedy)
+Bright visuals supporting lighthearted tones.
+Exaggerated expressions for comedic effect.
+Simple framing highlighting humor-focused moments.
+Playful color schemes enhancing mood.
+Fast-cut compositions reinforcing comedic timing.
+Visual contrast creating irony or absurdity.
+Clear focus on reactions and misunderstandings.
+Dynamic positioning of subjects in amusing ways.
+Warm lighting emphasizing cheerful atmosphere.
+Framing that sets up visual punchlines.
+
+(Horror/Thriller)
+Low-key lighting with heavy shadows.
+High contrast with eerie or muted colors.
+Unsettling framing creating discomfort.
+Composition emphasizing isolation or vulnerability.
+Distorted perspectives increasing tension.
+Sudden brightness contrasts for impact.
+Suspenseful use of negative space.
+Ambiguous elements adding unease.
+Sharp shadows playing with depth.
+Slow compositions drawing out tension.
+
+(Sci-Fi/Fantasy)
+Futuristic or otherworldly design elements.
+Imaginative color palettes defining new worlds.
+High-tech or magical visuals creating wonder.
+Layered depth creating immersive environments.
+Dynamic lighting effects enhancing speculative themes.
+Contrast between organic and artificial elements.
+Creative use of surreal settings.
+Enhanced textures for advanced realism.
+Visionary compositions exploring alternative realities.
+Strong visual identity for futuristic/mystical aesthetics.
