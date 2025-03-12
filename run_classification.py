@@ -13,6 +13,7 @@ class FFmpegCommandBuilder:
         self.models_dir = "models"
         self.resources_dir = "resources"
         self.ffmpeg_path = "./FFmpeg/ffmpeg"  # Assuming ffmpeg binary is in current directory
+        self.ffplay_path = "./FFmpeg/ffplay"  # Assuming ffplay binary is in current directory
         
         # Load model configuration if it exists
         self.model_config = self.load_model_config()
@@ -51,6 +52,10 @@ class FFmpegCommandBuilder:
         if not shutil.which(self.ffmpeg_path) and not shutil.which("ffmpeg"):
             print("Error: FFmpeg not found. Please install FFmpeg or set the correct path.")
             return False
+            
+        # Check for FFplay
+        if not shutil.which(self.ffplay_path) and not shutil.which("ffplay"):
+            print("Warning: FFplay not found. Visualization with FFplay will not be available.")
             
         # Check for Python packages
         try:
@@ -204,6 +209,24 @@ class FFmpegCommandBuilder:
             
         return avg_filter
 
+    def build_visualization_filters(self, args):
+        """Build visualization filters for drawing boxes and text"""
+        filters = []
+        
+        # Only add visualization filters if using FFplay or saving to output file
+        if args.detect_model and (args.visualization or args.output):
+            # Add bounding box visualization
+            box_color = args.box_color if args.box_color else "red"
+            filters.append(f"drawbox=box_source=side_data_detection_bboxes:color={box_color}")
+            
+            # Add text visualization
+            text_color = args.text_color if args.text_color else "yellow"
+            border_color = args.border_color if args.border_color else text_color
+            font_size = args.font_size if args.font_size else 20
+            filters.append(f"drawtext=text_source=side_data_detection_bboxes:fontcolor={text_color}:bordercolor={border_color}:fontsize={font_size}")
+            
+        return filters
+
     def apply_model_defaults(self, args):
         """Apply defaults from model configuration if arguments are not provided"""
         if not self.model_config:
@@ -243,8 +266,12 @@ class FFmpegCommandBuilder:
         # Apply defaults from model configuration
         args = self.apply_model_defaults(args)
         
+        # Determine whether to use FFmpeg or FFplay
+        use_ffplay = args.visualization
+        command_path = self.ffplay_path if use_ffplay else self.ffmpeg_path
+        
         # Base command
-        cmd = [self.ffmpeg_path]
+        cmd = [command_path]
         
         # Add verbosity
         if args.verbose:
@@ -256,40 +283,16 @@ class FFmpegCommandBuilder:
         cmd.extend(["-i", args.input])
         
         # Build filter complex or filter graph
-        if args.clap_model:
-            # If audio analysis is needed, we have to use filter_complex
-            filter_complex = []
-            
-            # Add audio stream processing
-            audio_filter = f"[0:a] {self.build_clap_filter(args)} [audio]"
-            filter_complex.append(audio_filter)
-            
-            # Add video stream processing if needed
-            if args.detect_model or args.clip_model:
-                # Only add scene filter if threshold is positive
-                scene_filter = f"select='gt(scene,{args.scene_threshold})'," if args.scene_threshold > 0 else ""
-                
-                if args.detect_model and args.clip_model:
-                    # Both detection and CLIP
-                    video_filter = f"[0:v] {scene_filter}{self.build_detection_filter(args)},{self.build_clip_filter(args)} [video]"
-                elif args.detect_model:
-                    # Detection only
-                    video_filter = f"[0:v] {scene_filter}{self.build_detection_filter(args)} [video]"
-                else:
-                    # CLIP only
-                    video_filter = f"[0:v] {scene_filter}{self.build_clip_filter(args)} [video]"
-                    
-                filter_complex.append(video_filter)
-                
-                # Combine video and audio
-                filter_complex.append(f"[video][audio] {self.build_average_filter(args)}")
-            else:
-                # Only audio analysis
-                filter_complex.append(f"[audio] {self.build_average_filter(args)}")
-                
-            cmd.extend(["-filter_complex", ";".join(filter_complex)])
-        else:
-            # Video-only processing uses -vf
+        filters = []
+        
+        # If using detection with visualization, ensure we don't mix with CLAP
+        if args.detect_model and args.clap_model and use_ffplay:
+            print("Warning: CLAP audio analysis is disabled in visualization mode with detection")
+            # Temporarily set clap_model to None to avoid interference
+            args.clap_model = None
+        # CLAP should be isolated from detection and visualization
+        # For visualization mode or detection, we'll use simpler filters
+        if use_ffplay or (args.detect_model and not args.clap_model):
             filters = []
             
             # Only add scene detection if threshold is positive
@@ -304,21 +307,90 @@ class FFmpegCommandBuilder:
             if args.clip_model:
                 filters.append(self.build_clip_filter(args))
                 
-            # Add average classification
-            filters.append(self.build_average_filter(args))
+            # Add visualization filters if needed for FFplay
+            vis_filters = self.build_visualization_filters(args)
+            if vis_filters:
+                filters.extend(vis_filters)
+                
+            # Add average classification if not in visualization mode
+            if not use_ffplay:
+                filters.append(self.build_average_filter(args))
+            
+            cmd.extend(["-vf", ",".join(filters)])
+        elif args.clap_model:
+            # Complex filter graph for audio processing
+            filter_complex = []
+            
+            # Add audio stream processing
+            audio_filter = f"[0:a] {self.build_clap_filter(args)} [audio]"
+            filter_complex.append(audio_filter)
+            
+            # Only add video processing to filter_complex if needed alongside CLAP
+            if args.clip_model:
+                scene_filter = f"select='gt(scene,{args.scene_threshold})'," if args.scene_threshold > 0 else ""
+                video_filter = f"[0:v] {scene_filter}{self.build_clip_filter(args)} [video]"
+                filter_complex.append(video_filter)
+                filter_complex.append(f"[video][audio] {self.build_average_filter(args)}")
+            else:
+                filter_complex.append(f"[audio] {self.build_average_filter(args)}")
+                
+            cmd.extend(["-filter_complex", ";".join(filter_complex)])
+        else:
+            
+            # Only add scene detection if threshold is positive
+            if args.scene_threshold > 0:
+                filters.append(f"select='gt(scene,{args.scene_threshold})'")
+                
+            # Add detection if needed
+            if args.detect_model:
+                filters.append(self.build_detection_filter(args))
+                
+            # Add CLIP if needed
+            if args.clip_model:
+                filters.append(self.build_clip_filter(args))
+                
+            # Add visualization filters if needed
+            vis_filters = self.build_visualization_filters(args)
+            if vis_filters:
+                filters.extend(vis_filters)
+                
+            # Add average classification if not in visualization mode
+            if not use_ffplay:
+                filters.append(self.build_average_filter(args))
             
             cmd.extend(["-vf", ",".join(filters)])
 
-        cmd.extend(["-f", "null", "-"])
+        # Output handling
+        if use_ffplay:
+            # FFplay doesn't need output specification
+            pass
+        else:
+            # Default null output for FFmpeg analysis
+            cmd.extend(["-f", "null", "-"])
         return cmd
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description='Build FFmpeg commands for AI-based video/audio analysis')
+    parser = argparse.ArgumentParser(description='Build FFmpeg/FFplay commands for AI-based video/audio analysis and visualization')
     
     # Input/output options
     parser.add_argument('--input', required=True, help='Input video/audio file')
     parser.add_argument('--output-stats', help='Output statistics file')
     parser.add_argument('--verbose', action='store_true', help='Enable verbose output')
+    
+    # Mode selection
+    parser.add_argument('--visualization', action='store_true', 
+                        help='Use FFplay for visualization instead of FFmpeg for analysis')
+    
+    # Visualization options
+    visualization_group = parser.add_argument_group('Visualization Options')
+    visualization_group.add_argument('--box-color', default='red',
+                                    help='Color for detection bounding boxes (default: red)')
+    visualization_group.add_argument('--text-color', default='yellow',
+                                    help='Color for detection text (default: yellow)')
+    visualization_group.add_argument('--border-color', 
+                                    help='Color for text border (defaults to text color)')
+    visualization_group.add_argument('--font-size', type=int, default=20,
+                                    help='Font size for detection text (default: 20)')
     
     # Scene detection
     parser.add_argument('--scene-threshold', type=float, default=-1.0, 
@@ -402,7 +474,7 @@ def main():
     cmd = builder.build_command(args)
     
     # Print the command
-    print("\nGenerated FFmpeg command:")
+    print("\nGenerated command:")
     print(" ".join(cmd))
     
     # Ask user if they want to execute the command
