@@ -244,6 +244,19 @@ python run_classification.py \
   --anchors "81&82&135&169&344&319" \
   --nb-classes 80 \
   --clip-labels resources/labels/labels_clip_person.txt 
+
+# FFplay - play video with drawn detection bbox and classification label
+# very low temperature so model decides on a classification
+
+python run_classification.py \
+  --input resources/video/johnwick.mp4 \
+  --visualization \
+  --detect-model models/detect/public/yolo-v4-tiny-tf/FP16/yolo-v4-tiny-tf.xml    \
+  --detect-labels resources/labels/coco_80cl.txt   \
+  --confidence 0.4 --clip-labels resources/labels/labels_clip_person.txt \
+  --temperature 0.007 \  
+  --box-color red \
+  --text-color yellow 
 ```
 
 ## Output Format
