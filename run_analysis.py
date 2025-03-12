@@ -129,13 +129,29 @@ class FFmpegTool:
     def run_command(self, cmd: List[str], check: bool = True, capture_output: bool = True):
         """Execute a command and return the result."""
         try:
-            return subprocess.run(cmd, check=check, capture_output=capture_output, text=True)
+            # Use text=True to get string output instead of bytes
+            result = subprocess.run(
+                cmd, 
+                check=check, 
+                capture_output=capture_output, 
+                text=True,
+                # Add these parameters to avoid terminal state issues
+                stdin=subprocess.PIPE
+            )
+            return result
         except subprocess.SubprocessError as e:
             logging.error(f"Command failed: {' '.join(cmd)}")
             logging.error(f"Error: {e}")
             if check:
                 raise AnalysisError(f"FFmpeg command failed: {e}")
             return e
+        finally:
+            # Attempt to reset terminal state if running on Unix-like system
+            if os.name == 'posix':
+                try:
+                    os.system('stty sane')
+                except Exception:
+                    pass
 
 
 class MediaAnalyzer:
