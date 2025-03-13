@@ -1,0 +1,125 @@
+[VisualStyle]
+(Animation)
+Drawn characters and objects.
+Bright colors and bold outlines.
+Simplified backgrounds.
+Cartoon-like movements.
+Non-realistic proportions.
+Vibrant color palette.
+Hand-drawn or computer-generated elements.
+Exaggerated features and expressions.
+
+(LiveAction)
+Real people and objects.
+Natural colors and lighting.
+Realistic environments.
+Physical camera movement.
+Actual physical locations.
+Real-world physics.
+Natural shadows and reflections.
+Authentic textures and materials.
+
+[ImageQuality]
+(LowQuality)
+Blurry image details.
+Poor lighting conditions.
+Shaky camera movements.
+Visible noise or grain.
+Awkward framing.
+Washed out colors.
+Indoor home setting.
+Handheld camera look.
+Uneven exposure.
+
+(HighQuality)
+Sharp image details.
+Even professional lighting.
+Steady camera work.
+Clean image without noise.
+Balanced composition.
+Rich colors and contrast.
+Professional setting.
+Tripod or stabilized camera.
+Proper exposure.
+
+[ContentPurpose]
+(Storytelling)
+Character-focused shots.
+Emotional facial expressions.
+Carefully designed sets.
+Dramatic lighting.
+Scene transitions.
+Narrative setting.
+Character interactions.
+Story-driven visuals.
+
+(Informational)
+Clear subject presentation.
+Text overlays with information.
+Direct camera angles.
+Simple backgrounds.
+Focus on facts or data.
+Instructional elements.
+Educational content.
+Real-world examples.
+
+(RealityCapture)
+Unscripted moments.
+Natural environments.
+Authentic situations.
+Documentary-style framing.
+Real people in real settings.
+Journalistic approach.
+Minimal staging.
+Candid expressions.
+
+[Mood]
+(Emotional)
+Close-up on faces.
+Soft, expressive lighting.
+Intimate moments.
+Character-focused framing.
+Subtle color tones.
+Thoughtful composition.
+Quiet, reflective scenes.
+Personal interactions.
+
+(Exciting)
+Fast movement and action.
+Dramatic camera angles.
+High contrast lighting.
+Quick scene changes.
+Dynamic compositions.
+Motion-filled frames.
+Tense situations.
+Energy-focused visuals.
+
+(Lighthearted)
+Bright, cheerful colors.
+Open, well-lit spaces.
+Smiling faces.
+Playful compositions.
+Warm lighting.
+Casual settings.
+Funny situations.
+Relaxed atmosphere.
+
+(Tense)
+Dark shadows and low light.
+Confined spaces.
+Unsettling angles.
+Hidden or partial subjects.
+Stark contrast.
+Isolated figures.
+Mysterious elements.
+Uncomfortable framing.
+
+(Imaginative)
+Unusual environments.
+Fantasy elements.
+Futuristic technology.
+Otherworldly lighting.
+Creative set designs.
+Impossible scenarios.
+Magical or sci-fi objects.
+Surreal compositions.
