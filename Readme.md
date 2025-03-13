@@ -5,8 +5,6 @@
 ![Python Version](https://img.shields.io/badge/Python-3.10-blue)
 ![FFmpeg](https://img.shields.io/badge/FFmpeg-Latest-red)
 
-A simplified interface for using FFmpeg's DNN classification filter with CLIP and CLAP models. This implementation is currently available only on the author's fork, which is included as a submodule.
-
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
@@ -38,7 +36,11 @@ A simplified interface for using FFmpeg's DNN classification filter with CLIP an
 
 ## Overview
 
-DeepFFmpeg Video Classification provides a framework for advanced media content analysis using deep neural networks. It integrates CLIP (Contrastive Language-Image Pre-training) for visual understanding and CLAP (Contrastive Language-Audio Pre-training) for audio classification into FFmpeg's filtering system.
+DeepFFmpeg Video Classification is an advanced media analysis framework that bridges deep neural networks with FFmpeg's powerful processing capabilities. This project integrates state-of-the-art multimodal AI models directly into the video processing pipeline, enabling sophisticated content understanding without requiring separate processing steps.
+
+At its core, the framework leverages CLIP (Contrastive Language-Image Pre-training) for visual understanding and CLAP (Contrastive Language-Audio Pre-training) for audio comprehension. By integrating these models as native FFmpeg filters, DeepFFmpeg enables real-time analysis of media content with semantic understanding capabilities previously unavailable in traditional video processing tools.
+
+Whether you're categorizing large media libraries, extracting content insights, or building intelligent media applications, DeepFFmpeg provides the foundation for understanding what's happening in your videos - both visually and aurally - with minimal overhead and maximum flexibility.
 
 ## Features
 
