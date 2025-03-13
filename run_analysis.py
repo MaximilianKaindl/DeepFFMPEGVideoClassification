@@ -2,7 +2,7 @@ import argparse
 import logging
 import sys
 
-from src.analysis import MediaAnalyzer
+from src.analyze import MediaAnalyzer
 from src.util_classes import AnalysisError
 
 

@@ -2,7 +2,7 @@ import argparse
 import subprocess
 import sys
 
-from src.ai_classification import FFmpegCommandBuilder
+from src.classify import FFmpegCommandBuilder
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Build FFmpeg/FFplay commands for AI-based video/audio analysis and visualization')
