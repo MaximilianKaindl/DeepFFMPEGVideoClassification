@@ -393,51 +393,94 @@ Technical analysis generates a detailed JSON file with hierarchical information:
 
 ```json
 {
-  "input_file": "path/to/input_video.mp4",
+  "input_file": "resources/video/Popeye.mp4",
   "metadata": {
-    "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-    "duration": 185.42,
-    "size_bytes": 31457280,
-    "bitrate": 2048000,
+    "format": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": 1019.319319,
+    "size": 106189578,
+    "bitrate": 833415,
+    "streams": 2,
+    "tags": {
+      "major_brand": "isom",
+      "minor_version": "512",
+      "compatible_brands": "isomiso2avc1mp41",
+      "title": "Public Domain Movies - https://archive.org/details/publicmovies212",
+      "encoder": "Lavf57.21.101",
+      "comment": "license:http://creativecommons.org/publicdomain/mark/1.0/"
+    },
     "video_streams": [
       {
         "codec": "h264",
-        "width": 1920,
-        "height": 1080,
+        "width": 720,
+        "height": 480,
         "fps": 29.97,
-        "profile": "High",
-        "bit_depth": 8,
-        "color_space": "bt709"
+        "bit_depth": "8",
+        "pix_fmt": "yuv420p",
+        "profile": "Constrained Baseline",
+        "color_space": null
       }
     ],
     "audio_streams": [
       {
         "codec": "aac",
-        "sample_rate": 48000,
+        "sample_rate": "44100",
         "channels": 2,
-        "channel_layout": "stereo"
+        "channel_layout": "stereo",
+        "bit_depth": 0
       }
     ]
   },
   "scene_analysis": {
-    "scene_count": 42,
-    "average_scene_duration": 4.41,
-    "scene_timestamps": [0.0, 4.41, 8.82, ...]
+    "total_frames": 30549,
+    "scene_count": 203,
+    "scene_timestamps": [
+      0.0,
+      1.735068,
+      10.076743,
+      14.414414,
+      // ... more timestamps
+      1016.549883,
+      1018.018018
+    ],
+    "average_scene_duration": 5.021277433497537,
+    "scene_frequency": 0.199152509146155,
+    "threshold_used": 0.1,
+    "detection_method": "showinfo"
   },
   "audio_analysis": {
-    "mean_volume": -18.3,
-    "max_volume": -9.7,
-    "silence_moments": [
-      {"time": 23.5, "duration": 2.1}
-    ],
+    "has_audio": true,
+    "mean_volume": -26.3,
+    "max_volume": -9.2,
+    "action_moment_count": 39,
     "action_moments": [
-      {"time": 45.2, "type": "volume_peak", "intensity": 0.85},
-      {"time": 92.7, "type": "volume_peak", "intensity": 0.93}
+      {
+        "time": 7.9283220000000005,
+        "type": "sound_section",
+        "intensity": 1.0,
+        "duration": 13.474104,
+        "max_volume": null
+      },
+      {
+        "time": 65.9318025,
+        "type": "sound_section",
+        "intensity": 1.0,
+        "duration": 101.499977,
+        "max_volume": null
+      }
+      // ... more moments
     ]
   },
   "system_info": {
-    "probable_source": "professional_camera",
-    "creation_device_hints": ["Adobe Premiere Pro"]
+    "classification": "Unknown system",
+    "details": {
+      "encoder": "Lavf57.21.101",
+      "resolution_class": "SD",
+      "frame_rate_class": "Broadcast standard (30fps)",
+      "audio_class": "Consumer"
+    }
+  },
+  "analysis_parameters": {
+    "scene_threshold": 0.1
   }
 }
 ```
@@ -449,56 +492,71 @@ The combined analysis generates the most comprehensive JSON output, containing:
 ```json
 {
   "file_info": {
-    "filename": "input_video.mp4",
-    "path": "/path/to/input_video.mp4",
-    "size_mb": 30.0
+    "filename": "Popeye.mp4",
+    "path": "resources/video/Popeye.mp4",
+    "size_mb": 101.27027320861816,
+    "created_date": "2025-03-13 12:01:19"
   },
   "technical_analysis": {
     // Full technical analysis data (as shown above)
   },
   "ai_classifications": {
     "video": [
-      {"label": "Storytelling", "probability": 0.78, "count": 15},
-      {"label": "Emotional", "probability": 0.65, "count": 12}
+      {"label": "Animation", "probability": 0.7857, "count": 108},
+      {"label": "LowQuality", "probability": 0.6952, "count": 106},
+      {"label": "Exciting", "probability": 0.5031, "count": 101},
+      {"label": "Informational", "probability": 0.4896, "count": 67},
+      {"label": "Storytelling", "probability": 0.4524, "count": 43}
     ],
     "audio": [
-      {"label": "ProfessionalRecording", "probability": 0.81, "count": 18},
-      {"label": "EmotionalAudio", "probability": 0.72, "count": 14}
+      {"label": "EerieAudio", "probability": 0.9971, "count": 141},
+      {"label": "BasicRecording", "probability": 0.9808, "count": 113},
+      {"label": "InformationalAudio", "probability": 0.9547, "count": 77},
+      {"label": "FactualAudio", "probability": 0.9636, "count": 63},
+      {"label": "AnimatedAudio", "probability": 0.9103, "count": 32}
     ]
   },
   "combined_insights": {
     "content_type": {
-      "primary_type": "STORYTELLING",
-      "confidence": 0.85,
-      "subtypes": ["Emotional", "Live Action"],
+      "primary_type": "Storytelling",
+      "confidence": 0.16666666666666666,
+      "subtypes": [
+        "Animated",
+        "Exciting",
+        "EerieAudio"
+      ],
       "format_info": {
-        "duration": 185.42,
-        "resolution": "1920x1080",
-        "resolution_class": "FULL_HD",
-        "frame_rate": 29.97
+        "duration": 1019.319319,
+        "resolution": "720x480",
+        "frame_rate": 29.97,
+        "resolution_class": "SD"
       }
     },
     "quality_assessment": {
       "video_quality": {
-        "rating": "HIGH",
-        "factors": ["Professional camera work", "Good lighting and composition"]
+        "rating": "Standard",
+        "factors": [
+          "Consumer-level production"
+        ]
       },
       "audio_quality": {
-        "rating": "PROFESSIONAL",
-        "factors": ["Clear audio with good dynamic range", "Professional post-processing"]
+        "rating": "Basic",
+        "factors": [
+          "Standard audio quality"
+        ]
       },
       "technical_quality": {
-        "bitrate": 2048000,
+        "bitrate": 833415,
         "codec_info": {
           "video": {
             "codec": "h264",
-            "profile": "High",
-            "bit_depth": 8,
-            "color_space": "bt709"
+            "profile": "Constrained Baseline",
+            "bit_depth": "8",
+            "color_space": null
           },
           "audio": {
             "codec": "aac",
-            "sample_rate": 48000,
+            "sample_rate": "44100",
             "channels": 2,
             "channel_layout": "stereo"
           }
@@ -506,35 +564,39 @@ The combined analysis generates the most comprehensive JSON output, containing:
       }
     },
     "mood": {
-      "primary_mood": "Emotional",
-      "mood_confidence": 0.72,
+      "primary_mood": "Eerie",
+      "mood_confidence": 0.7080142619012847,
       "mood_elements": [
-        {"type": "Emotional", "strength": 0.72},
-        {"type": "Tense", "strength": 0.28}
+        {"type": "Exciting", "strength": 0.255893861641428},
+        {"type": "Emotional", "strength": 0.025633652446731898},
+        {"type": "Tense", "strength": 0.004131519708315917},
+        {"type": "Lighthearted", "strength": 0.0021246808446349166},
+        {"type": "Eerie", "strength": 0.7080142619012847},
+        {"type": "Light", "strength": 0.004202023457604585}
       ],
-      "mood_consistency": "MODERATELY_CONSISTENT",
-      "scene_rhythm_variation": 0.45,
       "mood_progression": [
-        {"time_range": "0.0s - 37.1s", "intensity": 0.32, "action_count": 2},
-        {"time_range": "37.1s - 74.2s", "intensity": 0.54, "action_count": 4},
-        {"time_range": "74.2s - 111.3s", "intensity": 0.78, "action_count": 6},
-        {"time_range": "111.3s - 148.4s", "intensity": 0.92, "action_count": 8},
-        {"time_range": "148.4s - 185.4s", "intensity": 0.65, "action_count": 5}
-      ]
+        {"time_range": "0.0s - 203.9s", "intensity": 0.8818211714285715, "action_count": 7},
+        {"time_range": "203.9s - 407.7s", "intensity": 0.6815447749999997, "action_count": 8},
+        {"time_range": "407.7s - 611.6s", "intensity": 0, "action_count": 0},
+        {"time_range": "611.6s - 815.5s", "intensity": 0, "action_count": 0},
+        {"time_range": "815.5s - 1019.3s", "intensity": 0, "action_count": 0}
+      ],
+      "mood_consistency": "Moderately consistent",
+      "scene_rhythm_variation": 0.4137186029823504
     },
     "storytelling_metrics": {
-      "narrative_structure": "COMPLEX",
-      "pacing": "MODERATE",
       "scene_analysis": {
-        "count": 42,
-        "average_duration": 4.41,
-        "scenes_per_minute": 13.59
+        "count": 203,
+        "average_duration": 5.021277433497537,
+        "scenes_per_minute": 11.949150548769301
       },
       "key_moments": [
-        {"time": "92.70s", "description": "MAJOR", "intensity": 0.93, "type": "volume_peak"},
-        {"time": "45.20s", "description": "SIGNIFICANT", "intensity": 0.85, "type": "volume_peak"},
-        {"time": "132.15s", "description": "NOTABLE", "intensity": 0.68, "type": "volume_peak"}
-      ]
+        {"time": "7.93s", "description": "Major action/emotional moment", "intensity": 1.0, "type": "sound_section"},
+        {"time": "65.93s", "description": "Major action/emotional moment", "intensity": 1.0, "type": "sound_section"},
+        {"time": "127.04s", "description": "Major action/emotional moment", "intensity": 1.0, "type": "sound_section"}
+      ],
+      "narrative_structure": "Rising Action",
+      "pacing": "Fast"
     }
   }
 }
@@ -546,41 +608,41 @@ In addition to saving files, the tools also print a human-readable summary to th
 
 ```
 === Combined Media Analysis Summary ===
-File: /path/to/input_video.mp4
-Size: 30.00 MB
-Duration: 185.42 seconds
+File: resources/video/Popeye.mp4
+Size: 101.27 MB
+Duration: 1019.32 seconds
 
-Content Type: STORYTELLING (85.0% confidence)
-Subtypes: Emotional, Live Action
+Content Type: Storytelling (16.67% confidence)
+Subtypes: Animated, Exciting, EerieAudio
 
-Video Quality: HIGH
-Audio Quality: PROFESSIONAL
+Video Quality: Standard
+Audio Quality: Basic
 
 Technical Highlights:
-- Video: 1920x1080 @ 29.97fps (h264)
-- Audio: aac 48000Hz 2ch
-- Scenes: 42 (avg 4.41s)
+- Video: 720x480 @ 29.97fps (h264)
+- Audio: aac 44100Hz 2ch
+- Scenes: 203 (avg 5.02s)
 
-Mood: Emotional (72.0% confidence)
-Mood Consistency: MODERATELY_CONSISTENT
+Mood: Eerie (70.80% confidence)
+Mood Consistency: Moderately consistent
 
-Narrative Structure: COMPLEX
-Pacing: MODERATE
+Narrative Structure: Rising Action
+Pacing: Fast
 
 Key Moments:
-- 92.70s: MAJOR (intensity: 0.93)
-- 45.20s: SIGNIFICANT (intensity: 0.85)
-- 132.15s: NOTABLE (intensity: 0.68)
+- 7.93s: Major action/emotional moment (intensity: 1.0)
+- 65.93s: Major action/emotional moment (intensity: 1.0)
+- 127.04s: Major action/emotional moment (intensity: 1.0)
 
 Top Video Classifications:
-- Storytelling: 0.78 (count: 15)
-- Emotional: 0.65 (count: 12)
-- LiveAction: 0.59 (count: 11)
+- Animation: 0.79 (count: 108)
+- LowQuality: 0.70 (count: 106)
+- Exciting: 0.50 (count: 101)
 
 Top Audio Classifications:
-- ProfessionalRecording: 0.81 (count: 18)
-- EmotionalAudio: 0.72 (count: 14)
-- Spoken Word: 0.68 (count: 12)
+- EerieAudio: 1.00 (count: 141)
+- BasicRecording: 0.98 (count: 113)
+- InformationalAudio: 0.95 (count: 77)
 ```
 
 This multi-level output format allows you to access both raw analysis data and derived insights, making it suitable for both technical and creative applications.
