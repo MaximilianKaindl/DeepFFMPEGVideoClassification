@@ -55,7 +55,7 @@ Whether you're categorizing large media libraries, extracting content insights, 
 
 ## Requirements
 
-- Python 3.10.16
+- Python 3.11
 - FFmpeg (Submodule included, clone recursively)
 - LibTorch C++ libraries
 - tokenizers-cpp library (Submodule included)
