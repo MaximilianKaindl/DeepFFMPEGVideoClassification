@@ -302,12 +302,7 @@ Integrates technical analysis with AI classification to provide comprehensive in
 
 ```bash
 # Run combined analysis with default settings
-python run_combined.py input_video.mp4
-
-# Specify custom categories and output path
-python run_combined.py input_video.mp4 \
-  -o combined_results \
-  --json results/combined_insights.json
+python run_combined.py input_video.mp4  -o combined_results
 
 # Use existing analysis files (skip reanalysis and classification)
 python run_combined.py input_video.mp4 \
