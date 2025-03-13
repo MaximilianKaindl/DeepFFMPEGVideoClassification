@@ -81,8 +81,6 @@ sudo apt install nvidia-cuda-toolkit
 ### 3. Build Tokenizers
 
 ```bash
-# Build tokenizers-cpp if not already existing
-git clone --recurse-submodules https://github.com/mlc-ai/tokenizers-cpp.git
 cd tokenizers-cpp/example/
 ./build_and_run.sh
 ```
