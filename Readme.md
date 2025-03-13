@@ -280,7 +280,7 @@ python run_analysis.py input_video.mp4
 # Specify output directory and custom scene threshold
 python run_analysis.py input_video.mp4 \
   -o analysis_results \
-  --threshold 0.2
+  --scene-threshold 0.2
 
 # Save analysis results to specific JSON file
 python run_analysis.py input_video.mp4 \
