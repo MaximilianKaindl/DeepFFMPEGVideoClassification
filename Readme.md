@@ -259,12 +259,14 @@ python run_classification.py \
 python run_classification.py \
   --input resources/video/johnwick.mp4 \
   --visualization \
-  --detect-model models/detect/public/yolo-v4-tiny-tf/FP16/yolo-v4-tiny-tf.xml    \
-  --detect-labels resources/labels/coco_80cl.txt   \
-  --confidence 0.4 --clip-labels resources/labels/labels_clip_person.txt \
-  --temperature 0.007 \  
+  --detect-model models/detect/public/yolo-v4-tiny-tf/FP16/yolo-v4-tiny-tf.xml \
+  --detect-labels resources/labels/coco_80cl.txt \
+  --confidence 0.4 \
+  --clip-labels resources/labels/labels_clip_person.txt \
+  --temperature 0.007 \
   --box-color red \
-  --text-color yellow 
+  --text-color yellow
+
 ```
 
 ### Technical Media Analysis
