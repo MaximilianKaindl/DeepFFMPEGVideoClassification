@@ -327,13 +327,45 @@ Think of the combined analysis as connecting two different ways of understanding
 1. **Technical Analysis**: Examines "how" the video was made - its resolution, scene changes, audio levels, etc.
 2. **AI Classification**: Recognizes "what" is in the video - both visually and through sound.
 
-By connecting these two perspectives, the system provides insights that neither could give alone:
-
-- When AI identifies "action movie" content and technical analysis finds rapid scene changes and loud audio peaks, the system can conclude "fast-paced action content"
-- When technical analysis detects high-quality video encoding and AI recognizes "documentary" content, the system can identify "professional documentary production"
-- When scene changes follow specific patterns (more at the beginning, fewer in middle, more at end), the system can recognize classic narrative structures
-
 The system uses simple rules to combine these inputs and generate meaningful insights about content type, quality, mood, and storytelling approach - similar to how a human media analyst would evaluate content, but in an automated way.
+
+#### Content Type Classification
+
+The system classifies videos into three primary categories:
+
+- **Storytelling**: Narrative-driven content with a beginning, middle, and end
+- **Informational**: Content that focuses on conveying facts or information
+- **Entertainment**: Content designed primarily for amusement or engagement
+
+Classification is based on:
+- Visual and audio classification results
+- Scene change patterns
+- Duration of shots
+- Audio characteristics (speech vs. music ratio)
+
+#### Quality Assessment
+
+Quality metrics include:
+
+- **Video Quality**: Based on resolution, bitrate, encoding parameters, and consistency
+- **Audio Quality**: Based on sample rate, bit depth, noise levels, and clarity
+- **Production Value**: Estimated based on technical markers of professional production
+
+#### Mood Analysis
+
+The mood analysis provides:
+
+- **Primary Mood**: The dominant emotional tone of the content
+- **Mood Progression**: How the mood changes throughout the video
+- **Mood Consistency**: Whether the mood remains stable or varies significantly
+
+#### Storytelling Metrics
+
+For content identified as narrative-driven:
+
+- **Narrative Structure**: Identification of classic story structures
+- **Pacing**: Rhythm and speed of content delivery
+- **Key Moments**: Detection of potential climactic or emotionally significant scenes
 
 ## Output Format
 
