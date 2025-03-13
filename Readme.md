@@ -376,12 +376,12 @@ python run_classification.py \
   --temperature 0.1 \
   --clip-categories resources/labels/clip_combined_analysis.txt \
   --clap-categories resources/labels/clap_combined_analysis.txt \
-  --output-stats johnwick_classifications.txt \
+  --output-stats combined_analysis/Popeye_classifications.txt \
   --skip-confirmation 
 
 python  run_analysis.py resources/video/Popeye.mp4 \
   --scene-threshold 0.1 \
-  --json johnwick_technical.json 
+  --json combined_analysis/Popeye_technical.json 
 ```
 
 
