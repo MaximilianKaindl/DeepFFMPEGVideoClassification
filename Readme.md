@@ -654,22 +654,34 @@ deepffmpeg/
 ├── converters/                  # Model conversion scripts
 │   ├── clip_to_pt.py            # CLIP model converter
 │   ├── clap_to_pt.py            # CLAP model converter
+│   ├── convert_yolo.sh          # YOLO conversion script
 │   └── test_scripted_models.py  # Testing tools
 ├── models/                      # Directory for model storage
 │   ├── clip/                    # CLIP models
 │   ├── clap/                    # CLAP models
-│   └── detect/                  # Detection models
+│   ├── detect/                  # Detection models
+│   └── models_config.json       # Model configuration file
 ├── resources/                   # Resource files
 │   ├── audio/                   # Sample audio files
 │   ├── images/                  # Sample images
-│   ├── labels/                  # Label files
+│   ├── labels/                  # Label files for classification
+│   │   ├── categories_clap.txt  # Sample CLAP category labels
+│   │   ├── categories_clip.txt  # Sample CLIP category labels 
+│   │   ├── clap_combined_analysis.txt  # Audio labels for combined analysis
+│   │   ├── clip_combined_analysis.txt  # Visual labels for combined analysis
+│   │   ├── coco_80cl.txt        # COCO dataset labels for detection
+│   │   ├── labels_clap_music.txt # CLAP music genre labels
+│   │   └── labels_clip_person.txt # CLIP person activity labels
 │   └── video/                   # Sample videos
+├── FFmpeg/                      # FFmpeg submodule (custom fork)
+| └──── setup.sh                 # configuration script
+├── tokenizers-cpp/              # Tokenizers C++ library submodule
 ├── environment.yml              # Conda environment file
 ├── requirements.txt             # Pip requirements file
 ├── run_conversion.py            # Model conversion script
-├── run_classification.py        # Main script for running analysis
+├── run_classification.py        # Video/audio classification script
 ├── run_analysis.py              # Technical media analysis script
-├── run_combined.py              # Combined analysis (technical + AI classification)
+├── run_combined.py              # Combined analysis script
 ```
 
 ## Troubleshooting
