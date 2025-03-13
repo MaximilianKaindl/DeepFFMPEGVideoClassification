@@ -179,7 +179,7 @@ def test_clap_model(args, model_path):
     
     # Build command
     cmd = [
-        sys.executable, "converters/test_scripted_models.py",
+        sys.executable, "src/converters/test_scripted_models.py",
         "--model_path", model_path,
         "--model_type", "clap",
         "--audio_path", args.audio_path,
@@ -256,7 +256,7 @@ def print_help():
       python run_conversion.py --skip_clap --clip_model_name ViT-B-32 --clip_dataset laion2b_s34b_b79k
 
       To get all available CLIP models:
-      python converters/clip_to_pt.py --list_models
+      python src/converters/clip_to_pt.py --list_models
     
       # Convert CLAP model with specific version using CPU
       python run_conversion.py --skip_clip --clap_version 2022

@@ -16,27 +16,6 @@ def export_clip_model(model_name, dataset_name, output_path, tokenizer_dir=None)
             pretrained=dataset_name
         )
         model.eval()
-        # Get tokenizer
-        tokenizer = open_clip.get_tokenizer(model_name)
-
-        if tokenizer_dir:
-            try:
-                print(f"Saving tokenizer to {tokenizer_dir}...")
-
-                # Try to use save_pretrained directly
-                if hasattr(tokenizer, 'save_pretrained'):
-                    tokenizer.save_pretrained(tokenizer_dir)
-                # If SimpleTokenizer without save_pretrained method
-                                    
-                else:                    
-                    # Copy the simpletokenizer.json file to output directory if it exists
-                    source_tokenizer_path = os.path.join('converters', "simpletokenizer.json")
-                    if os.path.exists(source_tokenizer_path):
-                        target_tokenizer_path = os.path.join(tokenizer_dir, "tokenizer.json")
-                        print(f"Copying simpletokenizer.json to {target_tokenizer_path}")
-                        shutil.copy2(source_tokenizer_path, target_tokenizer_path)
-            except Exception as e:
-                print(f"Error saving tokenizer: {str(e)}")        
 
         # Script the model
         print("Converting model to TorchScript format...")
@@ -46,7 +25,30 @@ def export_clip_model(model_name, dataset_name, output_path, tokenizer_dir=None)
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         scripted_model.save(output_path)
         print(f"Model successfully exported to {output_path}")
-        
+
+        # Get tokenizer
+        tokenizer = open_clip.get_tokenizer(model_name)
+
+        if tokenizer_dir:
+            try:
+                os.makedirs(os.path.dirname(tokenizer_dir), exist_ok=True)
+                print(f"Saving tokenizer to {tokenizer_dir}...")
+
+                # Try to use save_pretrained directly
+                if hasattr(tokenizer, 'save_pretrained'):
+                    tokenizer.save_pretrained(tokenizer_dir)
+                # If SimpleTokenizer without save_pretrained method
+                                    
+                else:                    
+                    # Copy the simpletokenizer.json file to output directory if it exists
+                    source_tokenizer_path = os.path.join('src', 'converters', "simpletokenizer.json")
+                    if os.path.exists(source_tokenizer_path):
+                        target_tokenizer_path = os.path.join(tokenizer_dir, "tokenizer.json")
+                        print(f"Copying simpletokenizer.json to {target_tokenizer_path}")
+                        shutil.copy2(source_tokenizer_path, target_tokenizer_path)
+            except Exception as e:
+                print(f"Error saving tokenizer: {str(e)}")        
+
         # Print model information
         print(f"\nModel Information:")
         print(f"- Model: {model_name}")
@@ -70,9 +72,9 @@ def main():
                         help='Name of the CLIP model (e.g., ViT-B-32)')
     parser.add_argument('--dataset_name', type=str, default="datacomp_xl_s13b_b90k", 
                         help='Name of the training dataset (e.g., laion2b_s34b_b79k)')
-    parser.add_argument('--output_path', type=str, default="../models/clip", 
+    parser.add_argument('--output_path', type=str, default="models/clip/clip_model.pt", 
                         help='Path for output TorchScript model')
-    parser.add_argument('--tokenizer_dir', type=str, default="../tokenizer_clip",
+    parser.add_argument('--tokenizer_dir', type=str, default="models/clip/tokenizer_clip",
                         help='Directory to save tokenizer files')
     parser.add_argument('--list_models', action='store_true',
                         help='List available models and exit')
