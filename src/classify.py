@@ -140,6 +140,10 @@ class FFmpegCommandBuilder:
                     print("Warning: CLAP model was traced with CUDA but requested device is CPU.")
                     print("Using CUDA for CLAP as it's required for models traced with CUDA.")
                 clap_device = "cuda"
+            elif device_traced == "cpu" and args.device == "cuda":
+                print("Warning: CLAP model was traced with CPU but requested device is CUDA.")
+                print("Using CPU for CLAP as it's required for models traced with CPU.")
+                clap_device = "cpu"
         
         # Build the filter with correct device
         clap_filter = f"dnn_classify=dnn_backend=torch:is_audio=1:device={clap_device}:model={args.clap_model}"
