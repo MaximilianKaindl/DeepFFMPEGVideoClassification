@@ -314,12 +314,6 @@ python run_combined.py input_video.mp4 \
 
 The combined analysis uses the `resources/labels/clip_combined_analysis.txt` and `resources/labels/clap_combined_analysis.txt`. The Categories names must be constant, dont change them.
 
-The combined analysis generates:
-- Content type classification (Storytelling, Informational, Entertainment)
-- Quality assessment for video and audio
-- Mood analysis (primary mood, mood progression, consistency)
-- Storytelling metrics (narrative structure, pacing, key moments)
-
 #### How Combined Analysis Works
 
 Think of the combined analysis as connecting two different ways of understanding a video:
