@@ -69,7 +69,7 @@ def run_new_analysis(args):
     """
     # Get the current script directory
     script_dir = Path(os.path.dirname(os.path.abspath(__file__)))
-    
+
     # Run technical analysis
     logging.info(f"Running technical analysis on {args.input}")
     output_json = Path(args.output) / f"{Path(args.input).stem}_technical.json" if args.output else Path(f"{Path(args.input).stem}_technical.json")
@@ -77,9 +77,7 @@ def run_new_analysis(args):
     tech_cmd = [
         sys.executable, str(script_dir / "run_analysis.py"),
         args.input,
-        "--ffmpeg", args.ffmpeg,
-        "--ffprobe", args.ffprobe,
-        "--threshold", str(args.threshold),
+        "--scene-threshold", str(args.scene_threshold),
         "--json", str(output_json)
     ]
     
@@ -99,7 +97,7 @@ def run_new_analysis(args):
         class_cmd = [
             sys.executable, str(script_dir / "run_classification.py"),
             "--input", args.input,
-            "--scene-threshold", str(args.threshold),
+            "--scene-threshold", str(args.scene_threshold),
             "--temperature", str(args.temperature),
             "--clip-categories", args.clip_categories,
             "--clap-categories", args.clap_categories,
@@ -153,16 +151,14 @@ def main():
         format='%(asctime)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
-    
+
     # Parse command line arguments
     parser = argparse.ArgumentParser(
         description='Combined Media Analysis Tool - Integrates technical analysis and AI classifications'
     )
     parser.add_argument('input', help='Path to input media file')
     parser.add_argument('-o', '--output', help='Output directory for analysis results')
-    parser.add_argument('--ffmpeg', default='./FFmpeg/ffmpeg', help='Path to ffmpeg binary')
-    parser.add_argument('--ffprobe', default='./FFmpeg/ffprobe', help='Path to ffprobe binary')
-    parser.add_argument('--threshold', type=float, default=0.3,
+    parser.add_argument('--scene-threshold', type=float, default=0.3,
                       help='Scene detection threshold (0.0-1.0, lower values detect more scenes)')
     parser.add_argument('--clip-categories', default='resources/labels/clip_combined_analysis.txt',
                       help='Path to CLIP categories file')
@@ -192,7 +188,6 @@ def main():
         logging.info(f"JSON results: {json_path}")
         
     except Exception as e:
-        logging.exception(f"Error during analysis: {e}")
         sys.exit(1)
 
 

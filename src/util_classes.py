@@ -489,15 +489,26 @@ class CombinedResults:
 class FFmpegTool:
     """Handles FFmpeg operations and command execution."""
     
-    def __init__(self, ffmpeg_path: str = "ffmpeg", ffprobe_path: str = "ffprobe"):
+    def __init__(self, ffmpeg_path: str, ffprobe_path: Optional[str] = None, ffplay_path: Optional[str] = None):
         self.ffmpeg_path = ffmpeg_path
         self.ffprobe_path = ffprobe_path
-        self._validate_tools()
+        self.ffplay_path = ffplay_path
     
     def _validate_tools(self):
         """Validate that FFmpeg tools are available and working."""
-        for cmd, tool_path in [(["-version"], self.ffmpeg_path), 
-                              (["-version"], self.ffprobe_path)]:
+        tool_paths = [
+            (self.ffmpeg_path, ["-version"])
+        ]
+        
+        # Only validate ffplay if a path was provided
+        if self.ffplay_path:
+            tool_paths.append((self.ffplay_path, ["-version"]))
+        if self.ffprobe_path:
+            tool_paths.append((self.ffprobe_path, ["-version"]))
+
+        for tool_path, cmd in tool_paths:
+            if not tool_path:
+                continue
             try:
                 subprocess.run([tool_path] + cmd, capture_output=True, check=True)
             except (subprocess.SubprocessError, FileNotFoundError) as e:

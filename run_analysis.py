@@ -1,5 +1,6 @@
 import argparse
 import logging
+import os
 import sys
 
 from src.analyze import MediaAnalyzer
@@ -22,9 +23,7 @@ def main():
     parser.add_argument('input', help='Path to input media file')
     parser.add_argument('-o', '--output', help='Output directory for analysis results')
     parser.add_argument('-j', '--json', help='Path to save JSON analysis results')
-    parser.add_argument('--ffmpeg', default='ffmpeg', help='Path to ffmpeg binary')
-    parser.add_argument('--ffprobe', default='ffprobe', help='Path to ffprobe binary')
-    parser.add_argument('--threshold', type=float, default=0.3,
+    parser.add_argument('--scene-threshold', type=float, default=0.3,
                       help='Scene detection threshold (0.0-1.0, lower values detect more scenes)')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose output')
     
@@ -34,14 +33,19 @@ def main():
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
     
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    ffmpeg_path = os.path.join(project_root, "FFmpeg")
+    ffmpeg_binary = os.path.join(ffmpeg_path, "ffmpeg")
+    ffprobe_binary = os.path.join(ffmpeg_path, "ffprobe")
+
     try:
         # Create analyzer
         analyzer = MediaAnalyzer(
             input_file=args.input,
             output_dir=args.output,
-            ffmpeg_path=args.ffmpeg,
-            ffprobe_path=args.ffprobe,
-            scene_threshold=args.threshold
+            ffmpeg_path=ffmpeg_binary,
+            ffprobe_path=ffprobe_binary,
+            scene_threshold=args.scene_threshold
         )
         
         # Run analysis

@@ -1,17 +1,18 @@
 import argparse
-import subprocess
+import os
 import sys
 
 from src.classify import FFmpegCommandBuilder
+from src.util_classes import AnalysisError
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Build FFmpeg/FFplay commands for AI-based video/audio analysis and visualization')
-    
     # Input/output options
     parser.add_argument('--input', required=True, help='Input video/audio file')
     parser.add_argument('--output-stats', help='Output statistics file')
     parser.add_argument('--verbose', action='store_true', help='Enable verbose output')
-    parser.add_argument('--skip-confirmation', action='store_true', help='Enable verbose output')
+    parser.add_argument('--skip-confirmation', action='store_true', help='Skip confirmation prompt')
+    parser.add_argument('--capture-output', action='store_true', help='Capture and display command output')
 
     # Mode selection
     parser.add_argument('--visualization', action='store_true', 
@@ -102,11 +103,21 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
-    builder = FFmpegCommandBuilder()
-    
-    if not builder.check_dependencies():
+    # Get the absolute path of the current directory (project root)
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    ffmpeg_path = os.path.join(project_root, "FFmpeg")
+    ffmpeg_binary = os.path.join(ffmpeg_path, "ffmpeg")
+    ffplay_binary = os.path.join(ffmpeg_path, "ffplay")
+    model_path = os.path.join(project_root, "models")
+    resources_path = os.path.join(project_root, "resources")
+
+    builder = FFmpegCommandBuilder(ffmpeg_path=ffmpeg_binary, ffplay_path=ffplay_binary, models_dir=model_path, resources_dir=resources_path)
+    try:
+        builder.check_dependencies()
+    except AnalysisError as e:
+        print(f"Error: {e}")
         sys.exit(1)
-        
+    
     cmd = builder.build_command(args)
     
     # Print the command
@@ -118,10 +129,26 @@ def main():
         response = 'y'
     else:
         response = input("\nDo you want to execute this command? (y/n): ")
+    
     if response.lower() in ['y', 'yes']:
         try:
-            subprocess.run(cmd, capture_output=True, text=True)
-        except Exception as e:
+            # Use the FFmpegTool to execute the command with appropriate output handling
+            result = builder.execute_command(cmd, capture_output=args.capture_output)
+            
+            # If output was captured, print it
+            if args.capture_output and result:
+                print("\nCommand output:")
+                if result.stdout:
+                    print(result.stdout)
+                if result.stderr:
+                    print("Error output:")
+                    print(result.stderr)
+                    
+                # Check return code and print warning if non-zero
+                if result.returncode != 0:
+                    print(f"\nWarning: Command exited with non-zero return code: {result.returncode}")
+            
+        except AnalysisError as e:
             print(f"Error executing command: {e}")
             sys.exit(1)
     else:

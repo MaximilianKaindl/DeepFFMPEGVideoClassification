@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 import os
-import shutil
 import json
+import shutil
+from src.util_classes import AnalysisError, FFmpegTool
+
 
 class FFmpegCommandBuilder:
-    def __init__(self):
+    def __init__(self, ffmpeg_path : str, ffplay_path : str, models_dir : str, resources_dir : str):
         # Default directories
-        self.models_dir = "models"
-        self.resources_dir = "resources"
-        self.ffmpeg_path = "./FFmpeg/ffmpeg"  # Assuming ffmpeg binary is in current directory
-        self.ffplay_path = "./FFmpeg/ffplay"  # Assuming ffplay binary is in current directory
+        self.models_dir = models_dir
+        self.resources_dir = resources_dir
         
         # Load model configuration if it exists
         self.model_config = self.load_model_config()
@@ -23,6 +23,9 @@ class FFmpegCommandBuilder:
 
         # Check environment variables
         self.check_env_vars()
+        
+        # Create FFmpegTool instance
+        self.ffmpeg_tool = FFmpegTool(ffmpeg_path=ffmpeg_path, ffplay_path=ffplay_path)
 
     def load_model_config(self):
         """Load model configuration from models_config.json if it exists"""
@@ -43,24 +46,7 @@ class FFmpegCommandBuilder:
             print("Warning: Some Environment variables are missing. \n Ignore this message if you sourced the setup file and use the same terminal. \n Setup environment variables with setup.sh in /FFmpeg. FFMPEG is configured to run with these variables. FFMPEG Build may fail if these variables are not set.")
 
     def check_dependencies(self):
-        """Check if necessary tools and libraries are installed"""
-        # Check for FFmpeg
-        if not shutil.which(self.ffmpeg_path) and not shutil.which("ffmpeg"):
-            print("Error: FFmpeg not found. Please install FFmpeg or set the correct path.")
-            return False
-            
-        # Check for FFplay
-        if not shutil.which(self.ffplay_path) and not shutil.which("ffplay"):
-            print("Warning: FFplay not found. Visualization with FFplay will not be available.")
-            
-        # Check for Python packages
-        try:
-            import torch
-            print(f"PyTorch version: {torch.__version__}")
-        except ImportError:
-            print("Warning: PyTorch not found. CLIP and CLAP models may not work.")
-            
-        return True
+        self.ffmpeg_tool._validate_tools()
 
     def build_detection_filter(self, args):
         """Build the FFmpeg detection filter string"""
@@ -210,7 +196,7 @@ class FFmpegCommandBuilder:
         filters = []
         
         # Only add visualization filters if using FFplay or saving to output file
-        if args.detect_model and (args.visualization or args.output):
+        if args.detect_model and (args.visualization):
             # Add bounding box visualization
             box_color = args.box_color if args.box_color else "red"
             filters.append(f"drawbox=box_source=side_data_detection_bboxes:color={box_color}")
@@ -264,7 +250,8 @@ class FFmpegCommandBuilder:
         
         # Determine whether to use FFmpeg or FFplay
         use_ffplay = args.visualization
-        command_path = self.ffplay_path if use_ffplay else self.ffmpeg_path
+        
+        command_path = self.ffmpeg_tool.ffplay_path if use_ffplay else self.ffmpeg_tool.ffmpeg_path
         
         # Base command
         cmd = [command_path]
@@ -364,3 +351,8 @@ class FFmpegCommandBuilder:
             # Default null output for FFmpeg analysis
             cmd.extend(["-f", "null", "-"])
         return cmd
+
+    def execute_command(self, cmd, capture_output=False):
+        """Execute the built command using FFmpegTool."""
+        result = self.ffmpeg_tool.run_command(cmd, check=False, capture_output=capture_output)
+        return result
