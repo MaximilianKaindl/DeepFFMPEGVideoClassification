@@ -363,7 +363,27 @@ For content identified as narrative-driven:
 
 ## Output Format
 
+The following example was created by the command with the default models from the conversion.
 Analysis results are saved in various formats depending on the analysis type:
+
+```bash
+python run_combined.py --scene-threshold 0.1 -o combined_analysis resources/video/Popeye.mp4
+
+# the combined script just runs those commands with added default parameters
+python run_classification.py \
+  --input resources/video/Popeye.mp4 \
+  --scene-threshold 0.1 \
+  --temperature 0.1 \
+  --clip-categories resources/labels/clip_combined_analysis.txt \
+  --clap-categories resources/labels/clap_combined_analysis.txt \
+  --output-stats johnwick_classifications.txt \
+  --skip-confirmation 
+
+python  run_analysis.py resources/video/Popeye.mp4 \
+  --scene-threshold 0.1 \
+  --json johnwick_technical.json 
+```
+
 
 ### Classification Output
 
@@ -371,15 +391,25 @@ When running visual or audio classification, results are saved in a structured C
 
 ```
 stream_id,label,avg_probability,count
-0,Home Recording,0.5168,11
-0,Narrative Film,0.3436,2
-0,Action,0.2122,1
-0,Horror/Thriller,0.2254,10
-0,Documentary,0.3437,8
-0,Non-Narrative Media,0.3423,1
-1,Spoken Word,0.4532,15
-1,Music,0.3241,7
-1,Professional Recording,0.5123,12
+0,LiveAction,0.5730,20
+0,HighQuality,0.5462,55
+0,Informational,0.5019,93
+0,Lighthearted,0.3739,2
+0,Animation,0.6368,93
+0,Exciting,0.3581,31
+0,LowQuality,0.5495,58
+0,Emotional,0.3972,76
+0,RealityCapture,0.4127,12
+0,Storytelling,0.4105,8
+0,Tense,0.3533,2
+1,BasicRecording,0.9808,113
+1,InformationalAudio,0.9547,77
+1,EmotionalAudio,0.9629,3
+1,EerieAudio,0.9971,141
+1,AnimatedAudio,0.9103,32
+1,FactualAudio,0.9636,63
+1,StorytellingAudio,0.9380,5
+1,LightAudio,0.8344,1
 ```
 
 - `stream_id`: 0 for video stream, 1 for audio stream
