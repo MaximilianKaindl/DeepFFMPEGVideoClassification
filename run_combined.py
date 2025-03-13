@@ -172,6 +172,13 @@ def main():
     parser.add_argument('--classification-txt', help='Path to existing classification results text file')
     
     args = parser.parse_args()
+
+    # Create output directory if specified and doesn't exist
+    if args.output:
+        output_dir = Path(args.output)
+        if not output_dir.exists():
+            logging.info(f"Creating output directory: {output_dir}")
+            output_dir.mkdir(parents=True, exist_ok=True)
     
     # Set verbose logging if requested
     if args.verbose:
