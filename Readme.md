@@ -119,7 +119,7 @@ cd FFmpeg
 # View available options
 ./setup.sh --help
 
-# Important: Edit setup.sh to set installation paths (lines 48-50)
+# Important: Edit setup.sh to set installation paths (lines 73-75)
 # Default paths are:
 # ./libtorch
 # ./tokenizers-cpp
@@ -252,6 +252,7 @@ python run_classification.py \
   --clip-labels resources/labels/labels_clip_person.txt 
 
 # FFplay - play video with drawn detection bbox and classification label
+# If FFplay is not working check your setup configuration
 # very low temperature so model decides on a classification
 
 python run_classification.py \
