@@ -35,7 +35,7 @@ def convert_clip_model(args):
     # Convert model
     print(f"\n=== Converting CLIP model ({args.clip_model_name}) ===")
     cmd = [
-        sys.executable, "converters/clip_to_pt.py",
+        sys.executable, "src/converters/clip_to_pt.py",
         "--model_name", args.clip_model_name,
         "--dataset_name", args.clip_dataset,
         "--output_path", model_path,
@@ -97,7 +97,7 @@ def convert_clap_model(args):
     # Convert model
     print(f"\n=== Converting CLAP model (version {args.clap_version}) ===")
     cmd = [
-        sys.executable, "converters/clap_to_pt.py",
+        sys.executable, "src/converters/clap_to_pt.py",
         "--version", args.clap_version,
         "--output_dir", args.clap_model_dir,
         "--tokenizer_dir", args.clap_tokenizer_dir,
@@ -138,7 +138,7 @@ def test_clip_model(args, model_path):
     
     # Build command
     cmd = [
-        sys.executable, "converters/test_scripted_models.py",
+        sys.executable, "src/converters/test_scripted_models.py",
         "--model_path", model_path,
         "--model_type", "clip",
         "--image_path", args.image_path,
