@@ -202,6 +202,7 @@ After conversion, a `models_config.json` file is created in the `/models` direct
 # Basic image classification
 python run_classification.py \
   --input resources/images/cat.jpg \
+  --temperature 0.07 \
   --clip-labels resources/labels/labels_clip_animal.txt
 
 # Video scene analysis
@@ -231,7 +232,7 @@ python run_classification.py \
   --input resources/video/example.mp4 \
   --temperature 0.1 \ 
   --clip-categories resources/labels/categories_clip.txt \ 
-  --clap-categories resources/labels/categories_clap.txt \
+  --clap-categories resources/labels/categories_clap.txt 
 ```
 
 ### Pipeline with Detection
