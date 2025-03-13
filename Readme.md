@@ -228,11 +228,11 @@ python run_classification.py \
 
 ```bash
 python run_classification.py \
-  --scene-threshold 0.2 \
-  --input resources/video/example.mp4 \
-  --temperature 0.1 \ 
-  --clip-categories resources/labels/categories_clip.txt \ 
-  --clap-categories resources/labels/categories_clap.txt 
+--input resources/video/example.mp4 \
+--clip-categories resources/labels/categories_clip.txt \
+--clap-categories resources/labels/categories_clap.txt \
+--scene-threshold 0.2 \
+--temperature 0.1
 ```
 
 ### Pipeline with Detection
