@@ -429,13 +429,13 @@ python run_combined.py --scene-threshold 0.1 --device cuda -o combined_analysis 
 # the combined script just runs those commands with added default parameters
 python run_classification.py \
   --input resources/video/Popeye.mp4 \
+  --device cuda \
   --scene-threshold 0.1 \
   --temperature 0.1 \
   --clip-categories resources/labels/clip_combined_analysis.txt \
   --clap-categories resources/labels/clap_combined_analysis.txt \
   --output-stats combined_analysis/Popeye_classifications.txt \
-  --skip-confirmation \
-  --device cuda 
+  --skip-confirmation 
 
 python  run_analysis.py resources/video/Popeye.mp4 \
   --scene-threshold 0.1 \
