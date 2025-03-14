@@ -247,6 +247,9 @@ python run_classification.py \
   --temperature 0.07 \
   --clip-labels resources/labels/labels_clip_animal.txt
 
+  # choose cuda as device if wanted
+  --device cuda
+
 # Video scene analysis
 python run_classification.py \
   --input resources/video/example.mp4 \
