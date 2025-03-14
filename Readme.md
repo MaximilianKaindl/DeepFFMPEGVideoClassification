@@ -81,6 +81,13 @@ sudo apt install nvidia-cuda-toolkit
 ### 3. Build Tokenizers
 
 ```bash
+# install make and cmake if not already installed
+sudo apt install unzip
+sudo apt install make
+sudo apt install cmake
+sudo apt-get install build-essential
+sudo apt-get update
+
 cd tokenizers-cpp/example/
 ./build_and_run.sh
 ```
