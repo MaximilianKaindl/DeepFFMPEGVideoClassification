@@ -93,6 +93,7 @@ sudo apt-get install build-essential
 sudo apt-get update
 
 cd tokenizers-cpp/example/
+# enshure all submodules have all files
 git submodule update --init --recursive
 ./build_and_run.sh
 ```
