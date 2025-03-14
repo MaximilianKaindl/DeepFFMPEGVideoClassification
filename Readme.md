@@ -242,13 +242,13 @@ The project includes a model conversion tool for downloading, converting, and te
 python run_conversion.py
 
 # Convert only CLIP model
-python run_conversion.py --skip-clap
+python run_conversion.py --skip_clap
 
 # Convert only CLAP model
-python run_conversion.py --skip-clip
+python run_conversion.py --skip_clip
 
 # Use GPU acceleration during conversion
-python run_conversion.py --use-cuda
+python run_conversion.py --use_cuda
 
 # View all options
 python run_conversion.py --usage
