@@ -130,7 +130,7 @@ export PKG_CONFIG_PATH=/opt/intel/openvino/runtime/lib/intel64/pkgconfig:$PKG_CO
 # initialize 
 source /opt/intel/openvino/setupvars.sh
 
-Example Installation for Ubuntu 22
+# Example Installation for Ubuntu 22
 wget https://storage.openvinotoolkit.org/repositories/openvino/packages/2023.3/linux/l_openvino_toolkit_ubuntu22_2023.3.0.13775.ceeafaf64f3_x86_64.tgz
 sudo mkdir /opt/intel
 sudo tar -xzf l_openvino_toolkit_ubuntu22_2023.3.0.13775.ceeafaf64f3_x86_64.tgz -C /opt/intel
