@@ -108,11 +108,11 @@ cd ../../
 # Should end up in Project Directory if installation was followed
 
 # CPU version (Linux)
-wget https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.6.0%2Bcpu.zip
+[Linux C++ CPU Debug](https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-debug-2.6.0%2Bcpu.zip)
 unzip libtorch-win-shared-with-deps-2.6.0+cpu.zip -d ./
 
 # CUDA 12.6 version (Linux)
-wget https://download.pytorch.org/libtorch/cu126/libtorch-cxx11-abi-shared-with-deps-2.6.0%2Bcu126.zip
+[Linux C++ CUDA 12.6 Debug](https://download.pytorch.org/libtorch/cu126/libtorch-win-shared-with-deps-debug-2.6.0%2Bcu126.zip)
 unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d ./
 ```
 
