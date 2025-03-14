@@ -35,7 +35,7 @@
 - [Acknowledgements](#acknowledgements)
 
 ## Overview
-DeepFFmpeg represents a significant advancement in media analysis by integrating cutting-edge AI models directly into the FFmpeg processing pipeline. This innovative approach eliminates the need for separate workflows, making sophisticated media understanding accessible through familiar FFmpeg commands.
+DeepFFmpeg integrates modern zero-shot classification AI models directly into the FFmpeg processing pipeline, offering sophisticated content analysis without requiring additional workflows. This practical approach makes semantic media understanding accessible through standard FFmpeg commands, providing an efficient solution for developers and media professionals.
 
 ## Core Technology
 
