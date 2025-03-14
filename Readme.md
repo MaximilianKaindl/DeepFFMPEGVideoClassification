@@ -504,8 +504,6 @@ Top Audio Classifications:
 - InformationalAudio: 0.95 (count: 77)
 ```
 
-This multi-level output format allows you to access both raw analysis data and derived insights, making it suitable for both technical and creative applications.
-
 ## Project Structure
 
 ```
