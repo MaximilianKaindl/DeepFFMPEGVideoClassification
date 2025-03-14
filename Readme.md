@@ -104,7 +104,8 @@ Download and extract LibTorch C++ libraries from the [PyTorch website](https://p
 
 ```bash
 # Installation recommended in Project directory for ease of setup
-cd PARENT_FOLDER/DeepFFMPEGVideoClassification
+cd ../../
+# Should end up in Project Directory if installation was followed
 
 # CPU version (Linux)
 wget https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.6.0%2Bcpu.zip
