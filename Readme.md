@@ -81,8 +81,9 @@ sudo apt install nvidia-cuda-toolkit
 ### 3. Build Tokenizers
 
 ```bash
-# install rust
+# install rust and reset the terminal
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+reset
 
 # install following dependencies
 sudo apt install unzip
