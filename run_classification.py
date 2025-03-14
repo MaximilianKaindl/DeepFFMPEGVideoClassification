@@ -38,7 +38,7 @@ def parse_arguments():
                         help='Confidence threshold for detections and classifications (default: 0.3)')
     
     # Device selection
-    parser.add_argument('--device', default='cuda', choices=['cuda', 'cpu'],
+    parser.add_argument('--device', default='cpu', choices=['cuda', 'cpu'],
                         help='Device to use for CLIP and CLAP models (default: cuda)')
     
     # Common model parameters group (kept for backward compatibility)
@@ -107,7 +107,11 @@ def main():
     project_root = os.path.dirname(os.path.abspath(__file__))
     ffmpeg_path = os.path.join(project_root, "FFmpeg")
     ffmpeg_binary = os.path.join(ffmpeg_path, "ffmpeg")
-    ffplay_binary = os.path.join(ffmpeg_path, "ffplay")
+    if args.visualization:
+        ffplay_binary = os.path.join(ffmpeg_path, "ffplay")
+    else :
+        ffplay_binary = None
+        
     model_path = os.path.join(project_root, "models")
     resources_path = os.path.join(project_root, "resources")
 
