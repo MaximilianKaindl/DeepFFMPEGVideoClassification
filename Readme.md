@@ -62,7 +62,7 @@ Whether you're categorizing large media libraries, extracting content insights, 
 - OpenVINO Toolkit (optional, for detection only)
 - GPU support (optional but recommended)
 
-## Installation
+## Linux Installation
 
 ### 1. Clone Repository
 
