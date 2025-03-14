@@ -81,7 +81,10 @@ sudo apt install nvidia-cuda-toolkit
 ### 3. Build Tokenizers
 
 ```bash
-# install make and cmake if not already installed
+# install rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# install following dependencies
 sudo apt install unzip
 sudo apt install make
 sudo apt install cmake
