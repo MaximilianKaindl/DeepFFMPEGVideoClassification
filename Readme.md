@@ -109,11 +109,11 @@ cd ../../
 
 # CPU version (Linux)
 wget https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.6.0%2Bcpu.zip
-unzip libtorch-win-shared-with-deps-2.6.0+cpu.zip -d libtorch
+unzip libtorch-win-shared-with-deps-2.6.0+cpu.zip -d ./
 
 # CUDA 12.6 version (Linux)
 wget https://download.pytorch.org/libtorch/cu126/libtorch-cxx11-abi-shared-with-deps-2.6.0%2Bcu126.zip
-unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d libtorch
+unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d ./
 ```
 
 ### 5. Install OpenVINO (Optional)
