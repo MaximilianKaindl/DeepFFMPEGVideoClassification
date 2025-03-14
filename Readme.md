@@ -156,7 +156,7 @@ cd FFmpeg
 
 # Set up environment and configure FFmpeg
 source ./setup.sh
-# If terminal crashes - setup faield, run without source to see error
+# If terminal crashes - setup failed, run without source to see error
 
 # Clean previous builds
 make clean
@@ -283,7 +283,7 @@ python run_classification.py \
   --clip-labels resources/labels/labels_clip_person.txt 
 
 # FFplay - play video with drawn detection bbox and classification label
-# If FFplay is not working check your setup configuration
+# If FFplay is not working check your setup configuration (enable --draw)
 # very low temperature so model decides on a classification
 
 python run_classification.py \
