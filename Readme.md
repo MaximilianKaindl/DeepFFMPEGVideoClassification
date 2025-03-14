@@ -264,15 +264,14 @@ After conversion, a `models_config.json` file is created in the `/models` direct
 # Basic image classification
 python run_classification.py \
   --input resources/images/cat.jpg \
+  --device cuda \
   --temperature 0.07 \
   --clip-labels resources/labels/labels_clip_animal.txt
-
-  # choose cuda as device if wanted
-  --device cuda
 
 # Video scene analysis
 python run_classification.py \
   --input resources/video/example.mp4 \
+  --device cuda \
   --scene-threshold 0.4 \
   --clip-categories resources/labels/categories_clip.txt 
 
@@ -283,7 +282,7 @@ python run_classification.py --usage
 ### Audio Analysis with CLAP
 
 ```bash
-# Audio classification
+# Audio classification 
 python run_classification.py \
   --input resources/audio/blues.mp3 \
   --clap-labels resources/labels/labels_clap_music.txt 
