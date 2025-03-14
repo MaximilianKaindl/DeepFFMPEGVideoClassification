@@ -1,0 +1,91 @@
+{
+    "input_file": "resources/video/Popeye.mp4",
+    "metadata": {
+      "format": "mov,mp4,m4a,3gp,3g2,mj2",
+      "duration": 1019.319319,
+      "size": 106189578,
+      "bitrate": 833415,
+      "streams": 2,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "title": "Public Domain Movies - https://archive.org/details/publicmovies212",
+        "encoder": "Lavf57.21.101",
+        "comment": "license:http://creativecommons.org/publicdomain/mark/1.0/"
+      },
+      "video_streams": [
+        {
+          "codec": "h264",
+          "width": 720,
+          "height": 480,
+          "fps": 29.97,
+          "bit_depth": "8",
+          "pix_fmt": "yuv420p",
+          "profile": "Constrained Baseline",
+          "color_space": null
+        }
+      ],
+      "audio_streams": [
+        {
+          "codec": "aac",
+          "sample_rate": "44100",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bit_depth": 0
+        }
+      ]
+    },
+    "scene_analysis": {
+      "total_frames": 30549,
+      "scene_count": 203,
+      "scene_timestamps": [
+        0.0,
+        1.735068,
+        10.076743,
+        14.414414,
+        // ... more timestamps
+        1016.549883,
+        1018.018018
+      ],
+      "average_scene_duration": 5.021277433497537,
+      "scene_frequency": 0.199152509146155,
+      "threshold_used": 0.1,
+      "detection_method": "showinfo"
+    },
+    "audio_analysis": {
+      "has_audio": true,
+      "mean_volume": -26.3,
+      "max_volume": -9.2,
+      "action_moment_count": 39,
+      "action_moments": [
+        {
+          "time": 7.9283220000000005,
+          "type": "sound_section",
+          "intensity": 1.0,
+          "duration": 13.474104,
+          "max_volume": null
+        },
+        {
+          "time": 65.9318025,
+          "type": "sound_section",
+          "intensity": 1.0,
+          "duration": 101.499977,
+          "max_volume": null
+        }
+        // ... more moments
+      ]
+    },
+    "system_info": {
+      "classification": "Unknown system",
+      "details": {
+        "encoder": "Lavf57.21.101",
+        "resolution_class": "SD",
+        "frame_rate_class": "Broadcast standard (30fps)",
+        "audio_class": "Consumer"
+      }
+    },
+    "analysis_parameters": {
+      "scene_threshold": 0.1
+    }
+  }

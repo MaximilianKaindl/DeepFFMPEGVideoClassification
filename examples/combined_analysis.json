@@ -1,0 +1,110 @@
+{
+    "file_info": {
+      "filename": "Popeye.mp4",
+      "path": "resources/video/Popeye.mp4",
+      "size_mb": 101.27027320861816,
+      "created_date": "2025-03-13 12:01:19"
+    },
+    "technical_analysis": {
+        // Full technical analysis data 
+    },
+    "ai_classifications": {
+      "video": [
+        {"label": "Animation", "probability": 0.7857, "count": 108},
+        {"label": "LowQuality", "probability": 0.6952, "count": 106},
+        {"label": "Exciting", "probability": 0.5031, "count": 101},
+        {"label": "Informational", "probability": 0.4896, "count": 67},
+        {"label": "Storytelling", "probability": 0.4524, "count": 43}
+      ],
+      "audio": [
+        {"label": "EerieAudio", "probability": 0.9971, "count": 141},
+        {"label": "BasicRecording", "probability": 0.9808, "count": 113},
+        {"label": "InformationalAudio", "probability": 0.9547, "count": 77},
+        {"label": "FactualAudio", "probability": 0.9636, "count": 63},
+        {"label": "AnimatedAudio", "probability": 0.9103, "count": 32}
+      ]
+    },
+    "combined_insights": {
+      "content_type": {
+        "primary_type": "Storytelling",
+        "confidence": 0.16666666666666666,
+        "subtypes": [
+          "Animated",
+          "Exciting",
+          "EerieAudio"
+        ],
+        "format_info": {
+          "duration": 1019.319319,
+          "resolution": "720x480",
+          "frame_rate": 29.97,
+          "resolution_class": "SD"
+        }
+      },
+      "quality_assessment": {
+        "video_quality": {
+          "rating": "Standard",
+          "factors": [
+            "Consumer-level production"
+          ]
+        },
+        "audio_quality": {
+          "rating": "Basic",
+          "factors": [
+            "Standard audio quality"
+          ]
+        },
+        "technical_quality": {
+          "bitrate": 833415,
+          "codec_info": {
+            "video": {
+              "codec": "h264",
+              "profile": "Constrained Baseline",
+              "bit_depth": "8",
+              "color_space": null
+            },
+            "audio": {
+              "codec": "aac",
+              "sample_rate": "44100",
+              "channels": 2,
+              "channel_layout": "stereo"
+            }
+          }
+        }
+      },
+      "mood": {
+        "primary_mood": "Eerie",
+        "mood_confidence": 0.7080142619012847,
+        "mood_elements": [
+          {"type": "Exciting", "strength": 0.255893861641428},
+          {"type": "Emotional", "strength": 0.025633652446731898},
+          {"type": "Tense", "strength": 0.004131519708315917},
+          {"type": "Lighthearted", "strength": 0.0021246808446349166},
+          {"type": "Eerie", "strength": 0.7080142619012847},
+          {"type": "Light", "strength": 0.004202023457604585}
+        ],
+        "mood_progression": [
+          {"time_range": "0.0s - 203.9s", "intensity": 0.8818211714285715, "action_count": 7},
+          {"time_range": "203.9s - 407.7s", "intensity": 0.6815447749999997, "action_count": 8},
+          {"time_range": "407.7s - 611.6s", "intensity": 0, "action_count": 0},
+          {"time_range": "611.6s - 815.5s", "intensity": 0, "action_count": 0},
+          {"time_range": "815.5s - 1019.3s", "intensity": 0, "action_count": 0}
+        ],
+        "mood_consistency": "Moderately consistent",
+        "scene_rhythm_variation": 0.4137186029823504
+      },
+      "storytelling_metrics": {
+        "scene_analysis": {
+          "count": 203,
+          "average_duration": 5.021277433497537,
+          "scenes_per_minute": 11.949150548769301
+        },
+        "key_moments": [
+          {"time": "7.93s", "description": "Major action/emotional moment", "intensity": 1.0, "type": "sound_section"},
+          {"time": "65.93s", "description": "Major action/emotional moment", "intensity": 1.0, "type": "sound_section"},
+          {"time": "127.04s", "description": "Major action/emotional moment", "intensity": 1.0, "type": "sound_section"}
+        ],
+        "narrative_structure": "Rising Action",
+        "pacing": "Fast"
+      }
+    }
+  }
