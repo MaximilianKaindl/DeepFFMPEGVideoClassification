@@ -121,9 +121,13 @@ unzip libtorch-cxx11-abi-shared-with-deps-2.6.0+cu126.zip -d ./
 Only required for object detection functionality:
 
 ```bash
-# Download OpenVINO Toolkit
-wget https://storage.openvinotoolkit.org/repositories/openvino/packages/2025.0/linux/openvino_2025.0.0.tgz
-tar -xzf openvino_2025.0.0.tgz -C /path/to/install
+# Download OpenVINO Toolkit 2023.3 LTS recommended
+https://storage.openvinotoolkit.org/repositories/openvino/packages/2023.3/linux
+tar -xzf /path/of/download -C /path/to/install
+
+# Set Path accordingly  
+export PKG_CONFIG_PATH=/opt/intel/openvino/runtime/lib/intel64/pkgconfig:$PKG_CONFIG_PATH
+source /opt/intel/openvino/setupvars.sh
 ```
 
 ### 6. Configure and Build FFmpeg
