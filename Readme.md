@@ -127,7 +127,17 @@ tar -xzf /path/of/download -C /path/to/install
 
 # Set Path accordingly  
 export PKG_CONFIG_PATH=/opt/intel/openvino/runtime/lib/intel64/pkgconfig:$PKG_CONFIG_PATH
+# initialize 
 source /opt/intel/openvino/setupvars.sh
+
+Example Installation for Ubuntu 22
+wget https://storage.openvinotoolkit.org/repositories/openvino/packages/2023.3/linux/l_openvino_toolkit_ubuntu22_2023.3.0.13775.ceeafaf64f3_x86_64.tgz
+sudo mkdir /opt/intel
+sudo tar -xzf l_openvino_toolkit_ubuntu22_2023.3.0.13775.ceeafaf64f3_x86_64.tgz -C /opt/intel
+# rename
+sudo mv /opt/intel/l_openvino_toolkit_ubuntu22_2023.3.0.13775.ceeafaf64f3_x86_64 /opt/intel/openvino_2023.3
+# Create symbolic link
+sudo ln -s /opt/intel/openvino_2023.3 /opt/intel/openvino
 ```
 
 ### 6. Configure and Build FFmpeg
