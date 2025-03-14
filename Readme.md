@@ -448,7 +448,7 @@ When running visual or audio AI classification, results are saved in a structure
 
 View the sample result in `examples/clip_clap.csv`.
 
-- `stream_id`: 0 for video stream, 1 for audio stream
+- `stream_id`: 0 for video stream, 1 for audio stream (most of the time)
 - `label`: The classification label from the specified categories file
 - `avg_probability`: Average probability/confidence score for this label
 - `count`: Number of frames/segments with this label as top classification
