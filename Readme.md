@@ -421,7 +421,7 @@ For content identified as narrative-driven:
 
 ## Output Format
 
-The following example was created by the command with the default models from the conversion.
+The following example was created by the following command and the default models from the conversion.
 Analysis results are saved in various formats depending on the analysis type:
 
 ```bash
