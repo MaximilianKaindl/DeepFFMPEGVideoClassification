@@ -102,6 +102,7 @@ def run_new_analysis(args):
             "--clip-categories", args.clip_categories,
             "--clap-categories", args.clap_categories,
             "--output-stats", str(output_class),
+            "--device", args.device,
             "--skip-confirmation"
         ]
         
@@ -170,6 +171,9 @@ def main():
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose output')
     parser.add_argument('--from-existing', help='Load from existing technical JSON and skip analysis')
     parser.add_argument('--classification-txt', help='Path to existing classification results text file')
+    # Device selection
+    parser.add_argument('--device', default='cpu', choices=['cuda', 'cpu'],
+                        help='Device to use for CLIP and CLAP models (default: cpu)')
     
     args = parser.parse_args()
 

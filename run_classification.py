@@ -39,7 +39,7 @@ def parse_arguments():
     
     # Device selection
     parser.add_argument('--device', default='cpu', choices=['cuda', 'cpu'],
-                        help='Device to use for CLIP and CLAP models (default: cuda)')
+                        help='Device to use for CLIP and CLAP models (default: cpu)')
     
     # Common model parameters group (kept for backward compatibility)
     model_params_group = parser.add_argument_group('Common Model Parameters')
