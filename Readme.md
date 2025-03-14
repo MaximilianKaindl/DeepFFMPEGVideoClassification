@@ -191,7 +191,10 @@ conda activate deepffmpegvideoclassification
 #### Using Python venv
 
 ```bash
-# Add the deadsnakes PPA for newer Python versions
+Copy# First install software-properties-common which provides add-apt-repository
+sudo apt install software-properties-common
+
+# Now you can add the deadsnakes PPA
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 
@@ -201,8 +204,8 @@ sudo apt install python3.11
 # Install pip for Python 3.11
 sudo apt install python3.11-venv python3.11-dev python3-pip
 
-# Create a virtual environment
-python -m venv .venv
+# Create a virtual environment with Python 3.11 specifically
+python3.11 -m venv .venv
 
 # Activate the environment
 source .venv/bin/activate
