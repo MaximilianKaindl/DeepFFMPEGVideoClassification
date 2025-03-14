@@ -7,7 +7,9 @@
 
 ## Table of Contents
 - [Overview](#overview)
-- [Features](#features)
+- [Core Technology](#core-technology)
+- [Key Features](#key-features)
+- [Practical Applications] (#practical-applications)
 - [Requirements](#requirements)
 - [Installation](#installation)
   - [1. Clone Repository](#1-clone-repository)
@@ -64,8 +66,6 @@ DeepFFmpeg enables developers and media professionals to:
 - Extract semantic insights from video and audio content
 - Identify content type, quality, mood, and narrative structure
 - Build intelligent media applications with deep content understanding
-- Process media at scale with minimal computational overhead
-- Create comprehensive media analysis reports combining technical and content insights
 
 The project provides a complete ecosystem including model conversion tools, command builders, and analysis utilities, making it accessible for both technical and creative applications in media processing.
 
