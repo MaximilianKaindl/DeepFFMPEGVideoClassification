@@ -35,22 +35,39 @@
 - [Acknowledgements](#acknowledgements)
 
 ## Overview
-DeepFFmpeg seamlessly integrates zero-shot AI classification into the FFmpeg processing pipeline, enabling sophisticated content analysis without additional workflows.
+DeepFFmpeg represents a significant advancement in media analysis by integrating cutting-edge AI models directly into the FFmpeg processing pipeline. This innovative approach eliminates the need for separate workflows, making sophisticated media understanding accessible through familiar FFmpeg commands.
 
-By combining CLIP for visual analysis and CLAP for audio analysis directly within FFmpeg filters, this framework allows for real-time media content analysis with deep semantic understanding.
+## Core Technology
 
-DeepFFmpeg is ideal for categorizing media libraries, extracting content insights, or building intelligent media applications. It offers a powerful yet simple solution for analyzing both visual and audio components of videos with little overhead and maximum flexibility.
+At its heart, DeepFFmpeg leverages two powerful zero-shot learning models:
 
-## Features
+1. **CLIP (Contrastive Language-Image Pre-training)** - Provides deep visual understanding by connecting image content with natural language descriptions
+2. **CLAP (Contrastive Language-Audio Pre-training)** - Delivers semantic audio analysis through similar language-based classification
 
-- **Multi-modal Analysis**: Combine CLIP visual understanding and CLAP audio classification for comprehensive media analysis
-- **GPU Acceleration**: Leverage CUDA for faster processing
-- **Command Builder**: Simplified interface for building complex FFmpeg commands
-- **Model Conversion**: Automated tools to convert and test CLIP and CLAP models
-- **Technical Metadata Extraction**: Detailed analysis of media file technical properties
-- **Advanced Scene Detection**: Identify scene changes and key moments
-- **Audio Analysis**: Volume levels, silence detection, and action moments
-- **Combined Insights**: Derive content type, quality assessment, mood, and storytelling metrics
+The framework embeds these models as native FFmpeg filters, allowing for real-time processing and analysis of media content with minimal overhead.
+
+## Key Features
+
+- **Unified Processing Pipeline**: Perform AI-powered analysis within your existing FFmpeg workflows
+- **Multi-modal Understanding**: Analyze both visual and audio components simultaneously for comprehensive media insights
+- **Zero-shot Learning**: Classify content using natural language prompts without requiring specific training data
+- **Technical Metadata Integration**: Combine AI classification with detailed technical media analysis
+- **Flexible Output Options**: Generate structured JSON reports, CSV classifications, or visualization overlays
+- **GPU Acceleration**: Leverage CUDA for faster processing when available
+- **Advanced Scene Analysis**: Identify scene changes, emotional moments, and content structure
+
+## Practical Applications
+
+DeepFFmpeg enables developers and media professionals to:
+
+- Automatically categorize and tag large media libraries
+- Extract semantic insights from video and audio content
+- Identify content type, quality, mood, and narrative structure
+- Build intelligent media applications with deep content understanding
+- Process media at scale with minimal computational overhead
+- Create comprehensive media analysis reports combining technical and content insights
+
+The project provides a complete ecosystem including model conversion tools, command builders, and analysis utilities, making it accessible for both technical and creative applications in media processing.
 
 ## Requirements
 
@@ -203,8 +220,11 @@ sudo apt install python3.11
 # Install pip for Python 3.11
 sudo apt install python3.11-venv python3.11-dev python3-pip
 
+# create alias
+alias python=python3.11
+
 # Create a virtual environment with Python 3.11 specifically
-python3.11 -m venv .venv
+python -m venv .venv
 
 # Activate the environment
 source .venv/bin/activate
