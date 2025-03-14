@@ -35,12 +35,11 @@
 - [Acknowledgements](#acknowledgements)
 
 ## Overview
+This project integrates modern zero-shot-classification AI models into the FFMPEG processing pipeline, offering sophisticated content analysis directly within FFmpeg.
 
-DeepFFmpeg Video Classification is an advanced media analysis framework that bridges deep neural networks with FFmpeg's powerful processing capabilities. This project integrates state-of-the-art multimodal AI models directly into the video processing pipeline, enabling sophisticated content understanding without requiring separate processing steps.
+The framework utilizes CLIP (Contrastive Language-Image Pre-training) for visual analysis and CLAP (Contrastive Language-Audio Pre-training) for audio analysis. By embedding these models as FFmpeg filters, DeepFFmpeg facilitates real-time media content analysis with a level of semantic understanding not typically available in conventional video processing tools.
 
-At its core, the framework leverages CLIP (Contrastive Language-Image Pre-training) for visual understanding and CLAP (Contrastive Language-Audio Pre-training) for audio comprehension. By integrating these models as native FFmpeg filters, DeepFFmpeg enables real-time analysis of media content with semantic understanding capabilities previously unavailable in traditional video processing tools.
-
-Whether you're categorizing large media libraries, extracting content insights, or building intelligent media applications, DeepFFmpeg provides the foundation for understanding what's happening in your videos - both visually and aurally - with minimal overhead and maximum flexibility.
+Whether you need to categorize extensive media libraries, derive content insights, or develop intelligent media applications, DeepFFmpeg provides a powerful foundation for comprehending both the visual and auditory aspects of your videos with minimal overhead and maximum flexibility.
 
 ## Features
 
