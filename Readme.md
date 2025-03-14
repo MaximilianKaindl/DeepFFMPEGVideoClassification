@@ -459,7 +459,7 @@ Technical analysis generates a detailed JSON file you can find here: `examples/t
 
 ### Combined Analysis Output
 
-The combined analysis generates the a comprehensive JSON output you can find here: examples/combined_analysis.json
+The combined analysis generates the a comprehensive JSON output you can find here: `examples/combined_analysis.json`
 
 ##### Command Line Summary Output
 
