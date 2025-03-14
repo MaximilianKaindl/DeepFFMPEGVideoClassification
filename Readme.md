@@ -9,7 +9,7 @@
 - [Overview](#overview)
 - [Core Technology](#core-technology)
 - [Key Features](#key-features)
-- [Practical Applications] (#practical-applications)
+- [Practical Applications](#practical-applications)
 - [Requirements](#requirements)
 - [Installation](#installation)
   - [1. Clone Repository](#1-clone-repository)
