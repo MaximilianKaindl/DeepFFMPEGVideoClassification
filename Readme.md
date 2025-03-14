@@ -443,11 +443,10 @@ python  run_analysis.py resources/video/Popeye.mp4 \
 ```
 
 
-
 ### AI Classification
 When running visual or audio AI classification, results are saved in a structured CSV format.
 
-View a sample result in `examples/clip_clap.csv`.
+View the sample result in `examples/clip_clap.csv`.
 
 - `stream_id`: 0 for video stream, 1 for audio stream
 - `label`: The classification label from the specified categories file
@@ -456,11 +455,11 @@ View a sample result in `examples/clip_clap.csv`.
 
 ### Technical Analysis Output
 
-Technical analysis generates a detailed JSON file with hierarchical information: `examples/technical_analysis.json`
+Technical analysis generates a detailed JSON file you can find here: `examples/technical_analysis.json`
 
 ### Combined Analysis Output
 
-The combined analysis generates the most comprehensive JSON output: examples/combined_analysis.json
+The combined analysis generates the a comprehensive JSON output you can find here: examples/combined_analysis.json
 
 ##### Command Line Summary Output
 
