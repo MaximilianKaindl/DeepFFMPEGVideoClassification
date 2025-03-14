@@ -72,7 +72,7 @@ The project provides a complete ecosystem including model conversion tools, comm
 ## Requirements
 
 - Python 3.11
-- FFmpeg (Submodule included, clone recursively)
+- FFmpeg Fork (with CLIP/CLAP Implementation) (Submodule included, clone recursively)
 - LibTorch C++ libraries
 - tokenizers-cpp library (Submodule included)
 - OpenVINO Toolkit (optional, for detection only)
