@@ -129,8 +129,6 @@ tar -xzf openvino_2025.0.0.tgz -C /path/to/install
 ### 6. Configure and Build FFmpeg
 
 ```bash
-# Clone the FFmpeg fork
-git clone https://github.com/MaximilianKaindl/FFmpeg.git
 cd FFmpeg
 
 # View available options
