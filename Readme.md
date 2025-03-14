@@ -156,6 +156,7 @@ cd FFmpeg
 
 # Set up environment and configure FFmpeg
 source ./setup.sh
+# If terminal crashes - setup faield, run without source to see error
 
 # Clean previous builds
 make clean
